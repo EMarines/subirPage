@@ -1,12 +1,16 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
+  import svelteLogo from './assets/logoMH.png'
   import Counter from './lib/Counter.svelte'
+  import Navbar from './lib/Navbar.svelte'
+
 </script>
 
 <main>
+  <Navbar />
+
   <div>
-    <a href="https://vitejs.dev" target="_blank"> 
-      <img src="/logoMH.png" class="logo" alt="MatchHome Logo" />
+    <a href="https://matchhome.net" target="_blank"> 
+      <img src={svelteLogo} class="logo svelte" alt="MatchHome Logo" />
     </a>
     <a href="https://svelte.dev" target="_blank"> 
       <img src="/vite.svg" class="logo svelte" alt="Svelte Logo" />
