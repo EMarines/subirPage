@@ -105,11 +105,11 @@
     margin-right: 20px;
   } */
 
-  .nav ul li{
+  /* .nav ul li{
     display: inline-block;
     line-height: 80px;
     margin: 0 5px;
-  }
+  } */
 
   /* .logoNavbar{
     display: flex;
@@ -124,10 +124,10 @@
     text-transform: uppercase;
   } */
 
-  li:active, li:hover{
+  /* li:active, li:hover{
     background: #000090;
     transition: .5s;
-  }
+  } */
   
   /* .checkbtn{
     font-size: 30px;
@@ -177,20 +177,20 @@
     transition: all .5s;
    }
 
-   .nav ul li{
+   /* .nav ul li{
     display: block;
     margin: 5px 0;
     line-height: 30px;
-   }
+   } */
 
    /* .nav ul li a{
     font-size: 20px;
    } */
 
-  .hide:hover, li{
+  /* .hide:hover, li{
     background: none;
     color: red;
-   } 
+   }  */
 
    /* #check:checked, ~ ul{
     left: 0;
