@@ -1,53 +1,47 @@
 <script>
-   import { Router, Route, Link } from "svelte-navigator";
-   import Home from './Home.svelte'
-   import Contactos from './Contactos.svelte'
-   import Propiedades from './Propiedades.svelte'
-   import Captacion from './Captacion.svelte'
-   import Agenda from './Agenda.svelte'   
-   import About from './About.svelte'
-   import logoMH from '../assets/logoMH.png'
+  // importaciones 
+    import { Router, Route, Link } from "svelte-navigator";
+    import Home from './Home.svelte'
+    import Contactos from './Contactos.svelte'
+    import Propiedades from './Propiedades.svelte'
+    import Captacion from './Captacion.svelte'
+    import Agenda from './Agenda.svelte'   
+    import About from './About.svelte'
+    import Sinergias from "./Sinergias.svelte";
+    import logoMH from '../assets/logoMH.png'
    
-   </script>
+   
+</script>
+  <!-- Navbar -->
     <div class= "nav">
-      
-      <input type="checkbox" id="check">      
-      <label for="check" class="checkbtn">
-        <i class="fas fa-bars"></i>
-      </label>
-      
-  <!-- Menú del nav -->
-      <Router>
-        <div class="navMenu">
-        <ul>
-          <li class= "active">
-            <Link to="/">Home</Link>
-          </li>
-          <li class="hide">
-            <Link to="contactos">Contactos</Link>
-          </li>
-          <li>
-            <Link to="propiedades">Propiedades</Link>
-          </li>
-          <li>
-            <Link to="captacion">Captación</Link>            
-          </li>
-          <li>
-            <Link to="agenda">Agenda</Link>
-          </li>
-          <li>
-            <Link to="about">About</Link>
-          </li>
-
-        </ul>
-        </div>
+      <!-- <input type="checkbox" id="check">      
+        <label for="check" class="checkbtn">
+          <i class="fas fa-bars"></i>
+        </label> -->
+   
+        <Router>
+          <div class="navMenu">
+            <header>
+              <img src={logoMH} alt="MatchHome" class="logoMH">  
+              <nav>              
+                  <Link to="/">Home</Link>       
+                  <Link to="contactos">Contactos</Link>
+                  <Link to="propiedades">Propiedades</Link>
+                  <Link to="captacion">Captación</Link>            
+                  <Link to="agenda">Agenda</Link>
+                  <Link to ="sinergias">Sinergias</Link>
+                  <Link to="about">About</Link>      
+              </nav>
+            </header>
+          </div>
         
         <main>
+  <!-- Router -->
           <Route path="/">
             <Home />
           </Route>
           
-          <Route path="contactos">
+          <Route path="/contactos">
             <Contactos />
           </Route>
           
@@ -62,6 +56,10 @@
           <Route path="agenda">
             <Agenda />
           </Route>
+
+          <Route path="sinergias">
+            <Sinergias />
+          </Route>
           
           <Route path="about">
             <About />
@@ -70,9 +68,9 @@
         </main>
 
         
-      <a href="https://matchhome.net" target="_blank" class="enlace"> 
+      <!-- <a href="https://matchhome.net" target="_blank" class="enlace"> 
         <img src={logoMH} class="logoMH" alt="MatchHome" />
-      </a>
+      </a> -->
         
       </Router>
       
@@ -89,23 +87,23 @@
     height: 80px;
     width: 100%;
   }
-  .enlace{
+  /* .enlace{
     position: absolute;
     padding: 20px 50px;
-  }
+  } */
 
   .logoMH {
     height: 40px;
   }
 
   .logoMH:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+    filter: drop-shadow(0 0 2em #000000aa);
   } 
 
-  .nav ul{
+  /* .nav ul{
     float: right;
     margin-right: 20px;
-  }
+  } */
 
   .nav ul li{
     display: inline-block;
@@ -113,20 +111,25 @@
     margin: 0 5px;
   }
 
-  .nav ul li a{
+  /* .logoNavbar{
+    display: flex;
+    align-items: center;
+  } */
+
+  /* .nav ul li a{
     color: #fff;
     font-size: 18px;
     padding: 7px 13pz;
     border-radius: 3px;
     text-transform: uppercase;
-  }
+  } */
 
   li:active, li:hover{
     background: #000090;
     transition: .5s;
   }
   
-  .checkbtn{
+  /* .checkbtn{
     font-size: 30px;
     color: #fff;
     float: right;
@@ -134,11 +137,11 @@
     margin-right: 40px;
     cursor:pointer;
     display: none;
-  }
+  } */
 
-  #check{
+  /* #check{
     display: none;
-  }
+  } */
 
   section{
     background: url(logMh);
@@ -148,20 +151,22 @@
   }
 
   @media (max-width: 952px){
-    .enlace{
+    /* .enlace{
       padding-left: 20px;
-    }
-    .nav ul li a{
+    } */
+
+    /* .nav ul li a{
       font-size: 16px;
-    }
+    } */
+
   }
 
   @media (max-width: 858px){
-   .checkbtn{
+   /* .checkbtn{
      display: block;
-   }
+   } */
 
-   ul{
+   nav{
     position: fixed;
     width: 100%;
     height: 100vh;
@@ -178,9 +183,9 @@
     line-height: 30px;
    }
 
-   .nav ul li a{
+   /* .nav ul li a{
     font-size: 20px;
-   }
+   } */
 
   .hide:hover, li{
     background: none;

@@ -1,87 +1,92 @@
 <script>
+  import { db } from '../assets/db.js'
+  import { Router, Route, Link } from "svelte-navigator";
+  import Contactos from './Contactos.svelte';
+  import Propiedades from './Propiedades.svelte';
+  import Agenda from './Agenda.svelte';
+  import Sinergias from './Sinergias.svelte';
+  import { formatDate } from '../assets/funcions/sevralFunctions'
+  
+
   let fecha;
   let ordeTodos= [];
   let todos= [];
 
-    // Router
-        const goContacts = () => {
-          console.log("estas en cotnactos")
-          window.location.href='/contactos'
-        }
-          
-        const goPropieties = () => {
-          window.location.href='/propiedades'
-        }
-
-        const goToDo = () => {
-          window.location.href='/todo'
-        }
-
-    // Formato para fecha para Mostrar
-        function formatDate(fecha){
-            fecha = new Date(fecha)
-            let dia = fecha.getDate()+1;
-            let mes = fecha.getMonth()+1;
-            let ano = fecha.getFullYear();
-            return (`${dia}-${mes}-${ano}`)
-          }
-
-    // Formato para fecha para Filtrar
-        function formatDateFiltrar(fecha){
-          fecha = new Date(+fecha)
-            let dia = fecha.getDate();
-            let mes = fecha.getMonth()+1;
-            let ano = fecha.getFullYear();
-            return (`${ano}-${mes}-${dia}`)
-          }
-
-
-   //  function buscarItems(){
-   //    properties.forEach(element => console.log(element.locaProperty, element.nameProperty))
-    
-   //  }
-
+   function buscarItems(){
+    // window.location.href="/contactos"
+    console.log("diste click")
+   }
+  
 
 </script>
 
 <body>
-    <div class="wrapper-grid">
+
+  <!-- Router Menú -->
   
-        <div class="container" on:click={goContacts}>
-          <div class="optionCard">
-            <!-- <div class='banner-img'></div> -->
-            <img src="src/assets/add-user.png" alt='Buzon' class="profile-img">
-            <h1 class="name">Contactos</h1>
-          </div>
-        </div>  
- 
-      <div class="container" on:click={goPropieties}>
-        <div class="optionCard">
-          <!-- <div class='banner-img'></div> -->
-          <img src="src/assets/house.png" alt='Propiedades' class="profile-img">
-          <h1 class="name">Propiedades</h1>
-        </div>
-      </div>
- 
-      <div class="container" on:click={goToDo}>
-        <div class="optionCard">
-          <!-- <div class='banner-img'></div> -->
-          <img src="src/assets/schedule.png" alt='Buzon' class="profile-img">
-          <h1 class="name">Agenda</h1>
-        </div>
-      </div>
- 
-      <div class="container" >
-        <div class="optionCard">
-          <img src='src/assets/team.png' alt='Bolsa Inmobiliaria' class="profile-img">
-          <h1 class="name">Sinergias</h1>
-        </div>
-      </div>
-        <!-- <div class='banner-img'></div> -->
+    <div class="wrapper-grid">
+      <Router>
+
+        <Link to= "/contactos" title = "contactos">
+          <div class="container" >
+            <div class="optionCard">
+              <img src="src/assets/add-user.png" alt='Buzon' class="profile-img">
+              <h1 class="name">Contactos</h1>
+            </div>
+          </div>  
+        </Link>
+
+        <Link to= "/propiedades" title = "propiedades">
+          <div class="container" >
+            <div class="optionCard">
+              <img src="src/assets/house.png" alt='propiedad' class="profile-img">
+              <h1 class="name">Propiedades</h1>
+            </div>
+          </div>  
+        </Link>
+
+        <Link to= "/agenda" title = "agenda">
+          <div class="container" >
+            <div class="optionCard">
+              <img src="src/assets/schedule.png" alt='agenda' class="profile-img">
+              <h1 class="name">Agenda</h1>
+            </div>
+          </div>  
+        </Link>
+
+        <Link to= "/sinergias" title = "sinergias">
+          <div class="container" >
+            <div class="optionCard">
+              <img src="src/assets/team.png" alt='sinergias' class="profile-img">
+              <h1 class="name">Sinergias</h1>
+            </div>
+          </div>  
+        </Link>
+      
+      </Router>
+
+      <Route path="/contactos">
+        <Contactos />
+      </Route>
+
+      <Route path="/propiedades">
+        <Propiedades />
+      </Route>
+
+      <Route path="/agenda">
+        <Agenda />
+      </Route>
+
+      <Route path="/propiedades">
+        <Propiedades />
+      </Route>
+
+      <Route path="/sinergias">
+        <Sinergias />
+      </Route>
 
     </div>
-<!-- BOTON (provicional)-->
-   <!-- <button on:click={buscarItems}>Buscar Info</button> -->
+
 
 <!-- AGENDA -->
    <div class="show-home">

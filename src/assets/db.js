@@ -1,4 +1,4 @@
-export const datBas ={
+export const db ={
 	contactos:
 		[
 			{
