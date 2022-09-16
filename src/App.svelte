@@ -1,5 +1,5 @@
 <script>
-  import svelteLogo from './assets/logoMH.png'
+  // import svelteLogo from '../src/assets/images/logoMH.png'
   // import Counter from './lib/Counter.svelte'
   import Navbar from './lib/Navbar.svelte'
 

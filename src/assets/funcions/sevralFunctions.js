@@ -1,21 +1,52 @@
-// Convertir fecha en timestamp a formato legible
+const diaSemana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado' ];
+const mesAnyo = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ];
+let fecha;
+
+
+// Convertir fecha en timestamp a formato legible SIN hora
       export function formatDate(fecha){
-         fecha = new Date(fecha)
-         let dia = fecha.getDate()+1;
-         let mes = fecha.getMonth()+1;
-         let ano = fecha.getFullYear();
-         return (`${dia}-${mes}-${ano}`)
+          fecha = new Date(+fecha)
+          let dia = fecha.getDate();
+          if(dia < 10){
+            dia = '0' + dia
+          }
+          let mes = mesAnyo[fecha.getMonth()];
+          let ano = fecha.getFullYear();
+
+          return (`${dia}-${mes}-${ano}`)
        }
 
-      //  export default {
-      //    formatDate,
-      //  }
+// Convertir HORA en timestamp   
+      export function formatHour(fecha){
+          fecha = new Date(+fecha)
+          let minutes = fecha.getMinutes();
+            if(minutes.length < 2){
+              minutes = '0' + minutes
+            }
+          let hora = fecha.getHours();
+          if (hora > 12){
+            hora = hora - 12
+          }
+          
+          if(hora < 10){
+              hora = '0' + hora
+            }
+            
+          let dia = fecha.getDate();
+          if(dia < 10)
+            dia = '0' + dia
 
-// Formato para fecha para Filtrar
-    export function formatDateFiltrar(fecha){
-      fecha = new Date(+fecha)
-        let dia = fecha.getDate();
-        let mes = fecha.getMonth()+1;
-        let ano = fecha.getFullYear();
-        return (`${ano}-${mes}-${dia}`)
-      }
+          return (`${hora}:${minutes}`)
+       }
+      
+
+//  Extraer dia de la semana
+        export function formatDay(fecha){
+          fecha = new Date(+fecha)
+            let dia = diaSemana[fecha.getDay()];
+
+          return (`${dia}-`)
+          }
+
+
+        

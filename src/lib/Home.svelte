@@ -5,22 +5,24 @@
   import Propiedades from './Propiedades.svelte';
   import Agenda from './Agenda.svelte';
   import Sinergias from './Sinergias.svelte';
+  import Schedule from '../components/Schedule.svelte'
+  import Binnacle from '../components/Binnacle.svelte'
   import { formatDate } from '../assets/funcions/sevralFunctions'
   
 
   let fecha;
-  let ordeTodos= [];
   let todos= [];
 
-   function buscarItems(){
-    // window.location.href="/contactos"
-    console.log("diste click")
-   }
-  
+  let ordeBinnacle= db.binnacle
+  let orderContacts = db.contactos
+  let orderTodos = db.todo
+
 
 </script>
 
 <body>
+
+
 
   <!-- Router Menú -->
   
@@ -30,7 +32,7 @@
         <Link to= "/contactos" title = "contactos">
           <div class="container" >
             <div class="optionCard">
-              <img src="src/assets/add-user.png" alt='Buzon' class="profile-img">
+              <img src="src/assets/images/add-user.png" alt='Buzon' class="profile-img">
               <h1 class="name">Contactos</h1>
             </div>
           </div>  
@@ -39,7 +41,7 @@
         <Link to= "/propiedades" title = "propiedades">
           <div class="container" >
             <div class="optionCard">
-              <img src="src/assets/house.png" alt='propiedad' class="profile-img">
+              <img src="src/assets/images/house.png" alt='propiedad' class="profile-img">
               <h1 class="name">Propiedades</h1>
             </div>
           </div>  
@@ -48,7 +50,7 @@
         <Link to= "/agenda" title = "agenda">
           <div class="container" >
             <div class="optionCard">
-              <img src="src/assets/schedule.png" alt='agenda' class="profile-img">
+              <img src="src/assets/images/schedule.png" alt='agenda' class="profile-img">
               <h1 class="name">Agenda</h1>
             </div>
           </div>  
@@ -57,7 +59,7 @@
         <Link to= "/sinergias" title = "sinergias">
           <div class="container" >
             <div class="optionCard">
-              <img src="src/assets/team.png" alt='sinergias' class="profile-img">
+              <img src="src/assets/images/team.png" alt='sinergias' class="profile-img">
               <h1 class="name">Sinergias</h1>
             </div>
           </div>  
@@ -87,70 +89,19 @@
 
     </div>
 
+  <!--Schedule  -->
+    <Schedule (orderTodos)/>
 
-<!-- AGENDA -->
-   <div class="show-home">
 
-     <div class="container">
-       <div class="schedule">
-         <h1>Agenda</h1>    
-         <h3>Tareas</h3>
 
-         <ol>
-           {#each ordeTodos as item}
-             {#if new Date(item.endTask) <= new Date()}
-               {#if !item.timeTask}
-                 <ul>
-                   <li class:complete={item.isComplete}>               
-                       {formatDate(item.endTask)} - -
-                       {item.task} - -
-                       {#if item.notes}
-                           {item.notes} 
-                       {/if}          
-                   </li>
-                 </ul>
-               {/if}          
-             {/if}
-           {:else}
-             <p>No Hay Tareas Pendientes Para Hoy</p>              
-           {/each}
-         </ol>
-
-         <h3>Citas</h3>
-         <ol>
-           {#each todos as item}
-             {#if new Date(item.endTask) <= new Date()}
-               {#if item.timeTask}
-                 <ul>
-                   <li class:complete={item.isComplete}>
-                       <spam>
-                         {item.timeTask} - -
-                         {formatDate(item.endTask)} - -
-                         {item.task} - -
-                         {#if item.notes}
-                             {item.notes} 
-                         {/if}            
-                       </spam>        
-                   </li>
-                 </ul>
-               {/if}
-             {/if}
-           {:else}
-               <p>No Hay Citas Pendientes Para Hoy</p>
-           {/each}
-               <!-- <p class="error">{error}</p> -->
-         </ol>
-       </div>
-     </div>
 
 <!-- BITÁCORA -->
      <div class="container">
        <div class="schedule">
-         <!-- <Binnacle/>  -->
+         <Binnacle /> 
        </div>
      </div>
 
-   </div>
 
    </body>
 
