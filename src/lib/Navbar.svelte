@@ -8,6 +8,7 @@
     import Agenda from './Agenda.svelte'   
     import About from './About.svelte'
     import Sinergias from "./Sinergias.svelte";
+    import AltaContacto from './AltaContacto.svelte'
     import logoMH from '../assets/images/logoMH.png'
    
    
@@ -63,6 +64,10 @@
           
           <Route path="about">
             <About />
+          </Route>
+
+          <Route path="altaContacto">
+            <AltaContacto />
           </Route>
           
         </main>

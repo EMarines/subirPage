@@ -2,7 +2,7 @@
    import { formatDate, formatHour, formatDay } from '../assets/funcions/sevralFunctions'
    import { db } from '../assets/db'
 
-  const orderTodos = db.todo
+  const orderTodos = db.todos
 
 </script>
 

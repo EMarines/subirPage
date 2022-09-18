@@ -1,18 +1,101 @@
 export const db ={
-	contactos:
+	contacts:
 		[
 			{
-				nombre: "Sebastian",
-				apellido: "Marines"
-			},{
-				nombre: "Ricardo",
-			apellido: "Marines"
-			},{
-				nombre: "Fernando",
-			apellido: "Marines"
-			}
+				name: "Enrique",
+            lastname: "Marines",
+            telephon: "6145404003",
+            email: "emarines@live.com.mx",
+            selecMC: "Lona en Propiedad",      // Modo de contacto
+            propCont: "Lomas del Santuario Jma",     // Propiedad de contacto
+            comContact: "Busca casa de 4 recamaras",   // Comentarios
+            rangeProp: "crt",    // Rango buscado
+            contMode: "WA",     // Como contactarlo
+            budget: "6500000",       // Presupuesto tope
+            numBeds:"4",
+            numBaths:"3",
+            halfBathroom: "1",
+            numParks:"3",
+            modePay: "",      // Modo de pago
+            selecTP: "",      // Tipo de propiedad
+            contactType: "",  // Modo de contacto
+				createdAt: "1634402554000",
+            contactStage: "Etapa4", // Etapa del cliente
+            locaProperty: [], // Localicacion buscada
+            tagsProperty: [], // Etiquetas
+            sendedProperties:[],  // Propiedades enviadas
+			},{				
+					name: "Sebastián",
+					lastname: "Marines",
+					telephon: "6145404003",
+					email: "emarines@live.com.mx",
+					selecMC: "Lona en Propiedad",      // Modo de contacto
+					propCont: "Lomas del Santuario Jma",     // Propiedad de contacto
+					comContact: "Busca casa de 4 recamaras",   // Comentarios
+					rangeProp: "crt",    // Rango buscado
+					contMode: "WA",     // Como contactarlo
+					budget: "10500000",       // Presupuesto tope
+					numBeds:"4",
+					numBaths:"3",
+					halfBathroom: "1",
+					numParks:"3",
+					modePay: "",      // Modo de pago
+					selecTP: "",      // Tipo de propiedad
+					contactType: "",  // Modo de contacto
+					createdAt: "1634402554000",
+					contactStage: "Etapa3", // Etapa del cliente
+					locaProperty: [], // Localicacion buscada
+					tagsProperty: [], // Etiquetas
+					sendedProperties:[],  // Propiedades enviadas
+				},{				
+					name: "Ricardo",
+					lastname: "Marines",
+					telephon: "6145404003",
+					email: "emarines@live.com.mx",
+					selecMC: "Lona en Propiedad",      // Modo de contacto
+					propCont: "Lomas del Santuario Jma",     // Propiedad de contacto
+					comContact: "Busca casa de 4 recamaras",   // Comentarios
+					rangeProp: "crt",    // Rango buscado
+					contMode: "WA",     // Como contactarlo
+					budget: "13500000",       // Presupuesto tope
+					numBeds:"4",
+					numBaths:"3",
+					halfBathroom: "1",
+					numParks:"3",
+					modePay: "",      // Modo de pago
+					selecTP: "",      // Tipo de propiedad
+					contactType: "",		// Modo de contacto
+					createdAt: "1634402554000",  // Fecha de alta
+					contactStage: "Etapa2", // Etapa del cliente
+					locaProperty: [], // Localicacion buscada
+					tagsProperty: [], // Etiquetas
+					sendedProperties:[],  // Propiedades enviadas
+				},{				
+					name: "Fernando",
+					lastname: "Marines",
+					telephon: "6145404003",
+					email: "emarines@live.com.mx",
+					selecMC: "Lona en Propiedad",      // Modo de contacto
+					propCont: "Lomas del Santuario Jma",     // Propiedad de contacto
+					comContact: "Busca casa de 4 recamaras",   // Comentarios
+					rangeProp: "crt",    // Rango buscado
+					contMode: "WA",     // Como contactarlo
+					budget: "16500000",       // Presupuesto tope
+					numBeds:"4",
+					numBaths:"3",
+					halfBathroom: "1",
+					numParks:"3",
+					modePay: "",      // Modo de pago
+					selecTP: "",      // Tipo de propiedad
+					contactType: "",  // Modo de contacto
+					createdAt: "1634402554000",
+					contactStage: "Etapa1", // Etapa del cliente
+					locaProperty: [], // Localicacion buscada
+					tagsProperty: [], // Etiquetas
+					sendedProperties:[],  // Propiedades enviadas
+				 }
 		],
-	casas:
+	properties:
 		[
 			{
 				tipo: "casa",
@@ -29,7 +112,7 @@ export const db ={
 				date: "1610296954000"
 			}
 		],
-	todo:
+	todos:
 	[
 		{			
 				task: "Vender muchas casas",
