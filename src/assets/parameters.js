@@ -53,7 +53,10 @@
           export const oneToFour = [1, 2, 3, 4];
 
    // Etapas del cliente
-            export const contactStage = ["Etapa1", "Etapa2", "Etapa3", "Etapa4", "Etapa5" ]         
+            export const contactStage = ["Etapa1", "Etapa2", "Etapa3", "Etapa4", "Etapa5" ] 
+            
+      // Etiquetas
+            export const tags = ["Fracc. Privado", "Frente a Parque", "Una Planta", "Recamara en P.B.", "Patio Amplio", "Lista para Habitarse", "Nueva"]
 
   // Importa la base de propiedades
       // import { db } from "../firebase";

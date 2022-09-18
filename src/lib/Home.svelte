@@ -7,7 +7,7 @@
   import Sinergias from './Sinergias.svelte';
   import Schedule from '../components/Schedule.svelte'
   import Binnacle from '../components/Binnacle.svelte'
-  import { formatDate } from '../assets/funcions/sevralFunctions'
+  // import { formatDate } from '../assets/funcions/sevralFunctions'
   
 
   let fecha;
@@ -89,6 +89,7 @@
 
     </div>
 
+    <div class="">
   <!--Schedule  -->
     <Schedule (orderTodos)/>
 
@@ -96,10 +97,7 @@
 
 
 <!-- BITÁCORA -->
-     <div class="container">
-       <div class="schedule">
          <Binnacle /> 
-       </div>
      </div>
 
 

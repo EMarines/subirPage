@@ -1,11 +1,15 @@
 <script>
-   import { db } from '../assets/db'
-   import { typeProperties, modeContact, typeContacts, modePays, ranges, oneTofive, oneToFour, contactMode, diaSemana, mesAnyo } from '../assets/parameters';
+	import Ubication from './../components/Ubication.svelte';
+  import Stages from '../components/Stages.svelte'
+  import Tags from '../components/Tags.svelte'
+  import { typeProperties, modeContact, typeContacts, modePays, ranges, oneTofive, oneToFour, contactMode } from '../assets/parameters';
+  import { db } from '../assets/db'
 
+  let editStatus = false;
+  let commBinnacle;
+  let noteBinnacle;
 
-   let editStatus = false
-
-      // Array contacto
+  // Array contacto
       let contact = {
             name: "",
             lastname: "",
@@ -29,72 +33,104 @@
             tagsProperty: [], // Etiquetas
             sendedProperties:[],  // Propiedades enviadas
           };
+  // Funciones
+          function handleSubmit() {
+            if  (!editStatus) {
+              addContact();
+              // console.log("Contacto guardado")
+              } else {
+                // updateContact();                
+              }
+          };
+    // Añadir contacto
+          const addContact =  () => {  
+            try {
+              // commBinnacle = (`Se le agregó al contacto: ${contact.name} ${contact.lastname} del ${contact.telephon}`)
+              // noteBinnacle = {"date": Date.now(), "comment": commBinnacle}            
+               // @ts-ignore
+               db.contacts.push({...contact});
+              // await db.collection("contacts").doc().set({ ...contact, createdAt: Date.now() });
 
-   function handleSubmit() {
-   
-   }
+              // saveBinnacle(noteBinnacle, contact);
+              // systStatus = "contSelect" 
+                                          
+              console.log("estas en addContact", db.contacts)  
+              } catch (error) {
+                console.log(error)
+              }        
+            };
 
-   function onCancel() {
+    // Edita Contacto
+            //     const updateContact = async () => {
+            //   if (editingItem === "sendProperty") {
+            //     contact.sendedProperties.push(claEB)
+            //   } else {
+            //     commBinnacle = (`Se le editó a: ${contact.name} ${contact.lastname} del ${contact.telephon}`)
+            //     let binnacle = {"date": Date.now(), "comment": commBinnacle}                
+            //     saveBinnacle(binnacle);
+            //   }
+            //     await db.collection("contacts").doc(contact.telephon).update(contact);                
+            //     // editingItem = "";
+            //     // systStatus = "contSelect"; 
+            // };
 
-   }
+            const saveBinnacle = async (noteBinnacle) => {
+                  await db.collection("binnacles") .doc().set({ ...noteBinnacle});
+                  noteBinnacle=[];
+                  // console.log("entró a guardar en bitácora", noteBinnacle)
+                };
+
+          function onCancel() {
+            editStatus = true
+            window.location.href = "./contactos"
+
+          }
+
+
 
 </script>
-              <div class="altaContactos">
-               <form class="" on:submit|preventDefault={handleSubmit}>
+            <div class="altaContactos">
+              <form class="" on:submit|preventDefault={handleSubmit}>
            
-         <!-- Datos Personales del Contacto -->
-               <div class="">
-                   <h1 class="sectionTitle">Alta Contactos</h1>
-                 <div class="">
-                     <div class="contactInput">
-                         <input
-                           type="text"
-                           placeholder="Nombre"
-                           bind:value={contact.name}
-                           />
-                       </div>
-                       <div class="contactInput">
-                         <input
-                           type="text"
-                           placeholder="Apellido"
-                           bind:value={contact.lastname}
-                           class="form-control"/>
-                       </div>
-                       <div class="contactInput">
-                         <input
-                           type="tel"
-                           placeholder="telefono"
-                           bind:value={contact.telephon}
-                           class="form-control"/>
-                       </div>
-                       <div class="contactInput"> 
-                         <input
-                           type="email"
-                           placeholder="email"
-                           bind:value={contact.email}
-                           class="form-control"/>
-                       </div> 
+      <!-- Datos Personales del Contacto -->
+                <div class="">
 
-                     </div>
+                  <h1 class="sectionTitle">Alta Contactos</h1>
 
-                   <div>
+                    <div class="">
+
+                      <div class="contactInput">
+                        <input type="text" placeholder="Nombre" bind:value={contact.name}  />
+                      </div>
+                      <div class="contactInput">
+                          <input type="text" placeholder="Apellido" bind:value={contact.lastname} class="form-control"/>
+                      </div>
+                      <div class="contactInput">
+                        <input type="tel" placeholder="telefono" bind:value={contact.telephon} class="form-control"/>
+                      </div>
+                      <div class="contactInput"> 
+                        <input type="email" placeholder="email" bind:value={contact.email} class="form-control"/>
+                      </div>
+                    </div>
+
+       
                      <!-- Tipo de Contacto -->
-                       <!-- <select bind:value={db.contact.typeContact}>
+                       <select bind:value={contact.typeContact}>
                          <option disabled selected value="">Tipo de Contacto</option>
                          {#each typeContacts as typeContact}
                            <option type="checkbox" value={typeContact}>{typeContact}</option>
                          {/each}
-                       </select> -->
+                       </select>
 
                      <!-- Tipo de propiedad buscada -->
-                       <!-- <select class="selTP" id="selTP" name="selTP" bind:value={db.contact.selecTP}>
+                       <select class="selTP" id="selTP" name="selTP" bind:value={contact.selecTP}>
                            <option disabled selected value="">Tipo de Propiedad</option>
                            {#each typeProperties as typeProperty}
                                <option type="checkbox" value={typeProperty}
                                  >{typeProperty}</option
                                >
                            {/each}
-                         </select> -->
+                         </select>
 
                      <!-- Propiedad de Contacto -->
                        <!-- <select class="selTP" id="selTP" name="selTP" bind:value={db.contact.propCont}>
@@ -106,7 +142,7 @@
                          {/each}
                        </select> -->
 
-                   </div>
+                 
              
          <!-- Comentarios del contacto -->
              <div class="col">
@@ -186,21 +222,24 @@
                  {/each}
                </select>
 
-
+    <!-- Tags -->
+          <Ubication bind:ubication={contact.locaProperty}/>
+          <Stages bind:value = {contact.contactStage} />
+          <Tags bind:tag = {contact.tagsProperty} />
 
      <!-- Botones -->
            
            <div class="row align-center">
              
              <div class="col">        
-               <button class="btn-outline-primary col-3 row">
+               <button>
                  {#if !editStatus}Guardar{:else}Editar{/if}</button>
                </div>
                
                <div class="col">
                  <button class="btn-outline-warning col-3 row" on:click={onCancel}>Cancel</button>
                </div>
-              
-             </form>
            </div>
+              </form>
+            </div>
  
