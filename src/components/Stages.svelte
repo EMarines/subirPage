@@ -49,7 +49,7 @@
 
 <style>
 	section{
-			width: 20%;
+			width: 30%;
 			border: 2px solid purple;
 			border-radius: 10px;
 			padding: 8px;

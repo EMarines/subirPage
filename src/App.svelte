@@ -1,6 +1,4 @@
 <script>
-  // import svelteLogo from '../src/assets/images/logoMH.png'
-  // import Counter from './lib/Counter.svelte'
   import Navbar from './lib/Navbar.svelte'
 
 
@@ -10,18 +8,6 @@
   <div class="navBar">
     <Navbar />
   </div>
-
-  <div>
-    <!-- <a href="https://matchhome.net" target="_blank"> 
-      <img src={svelteLogo} class="logo" alt="MatchHome Logo" />
-    </a> -->
-   
-  </div>
-
-
-  
-
- 
 
 </main>
 
@@ -36,7 +22,6 @@
   } */
   .navBar{
     width: 80%;
-    
   }
 
 </style>

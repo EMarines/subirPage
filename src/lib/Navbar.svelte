@@ -9,6 +9,7 @@
     import About from './About.svelte'
     import Sinergias from "./Sinergias.svelte";
     import AltaContacto from './AltaContacto.svelte'
+    // import SelectedContact from './SelectedContact.svelte';
     import logoMH from '../assets/images/logoMH.png'
    
    
@@ -31,7 +32,8 @@
                   <Link to="captacion">Captación</Link>            
                   <Link to="agenda">Agenda</Link>
                   <Link to ="sinergias">Sinergias</Link>
-                  <Link to="about">About</Link>      
+                  <Link to="about">About</Link>
+                  <!-- <Link to="selectContact">SelectedContact</Link>       -->
               </nav>
             </header>
           </div>
@@ -69,6 +71,10 @@
           <Route path="altaContacto">
             <AltaContacto />
           </Route>
+
+          <!-- <Route path="selectedContact">
+            <SelectedContact />
+          </Route> -->
           
         </main>
 

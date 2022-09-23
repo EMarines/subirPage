@@ -1,5 +1,5 @@
 <script>
-	import ContactCard from './ContactCard.svelte';
+	// import ContactCard from './ContactCard.svelte';
    import {  formatDate } from '../assets/funcions/sevralFunctions'
    export let name, lastname, createdAt, contactStage, telephon, email, budget, rangeProp
 </script>
