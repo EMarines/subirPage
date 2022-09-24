@@ -1,21 +1,18 @@
 <script>
-	// import { systStatus } from './../stores/stores.js';
-
-	// import { Router, Route, Link  } from 'svelte-navigator';
-      import Search from '../components/Search.svelte'
-      import { db } from '../assets/db'
-      import ContactCard from '../components/ContactCard.svelte'
-      import user from '../assets/images/add-user.png'
-      import { contact, systStatus } from '../stores/stores'
-      import SelectedContact from '../components/SelectedContact.svelte'
-      
+      import Search from '../components/Search.svelte';
+      import { db } from '../assets/db';
+      import ContactCard from '../components/ContactCard.svelte';
+      import user from '../assets/images/add-user.png';
+      import { contact, systStatus, proInterest } from '../stores/stores';
+      import SelectedContact from '../components/SelectedContact.svelte';
+      import CardProperty from '../components/CardProperty.svelte';
       
    // Declaraciónes
       let searchTerm;
       let filteredContacts = [];
       let listToRender = db.contacts
-      // let systStatus = "start"
-      console.log("el valor es ", $systStatus);
+      $systStatus = "start"
+      // console.log("el valor es ", $systStatus);
    // Funciones 
 
          function addContact(){
@@ -25,13 +22,14 @@
          const selectContact = (item) => {
             contact.set(item)
             $systStatus="contSelect";
-            console.log($systStatus)
+            // console.log($systStatus)
          };
 
    // Input filter ""searchContact""
       const searchContact = () => {
          if (searchTerm.length > 0){
             listToRender = filteredContacts
+            console.log(searchTerm)
          } else {
             listToRender = db.contacts
          }
@@ -45,11 +43,13 @@
    <main>
       <div>
          <h1>Contactos</h1>
-         <button on:click={addContact}>alta de contacto</button>
       </div>
       <img src={user} alt="contactos">
+
+   <!-- Inicio de Contactos -->
       {#if  $systStatus == "start"}
          <h2>Contactos a Mostrar</h2>
+         <button on:click={addContact}>alta de contacto</button>
 
          <Search bind:searchTerm on:input={searchContact} />  
                      
@@ -65,10 +65,16 @@
 
       {/if}
 
-      {#if $systStatus === "contSelect"} 
+   <!-- Contacto Seleccionado -->
+      {#if $systStatus === "contSelect" || $systStatus === "showProperties"} 
          <div>
             <SelectedContact />
          </div>
+         {#if $systStatus === "showProperties" && $proInterest.length > 0}
+            <div>
+               <CardProperty />
+            </div>
+         {/if}
       {/if}
 
    </main>

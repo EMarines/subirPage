@@ -1,9 +1,12 @@
 <script>
+	import CardProperty from './CardProperty.svelte';
 	import { db } from '../assets/db';
   import Search from './Search.svelte';
-	  import { contact, systStatus } from '../stores/stores.js';
+  import AddToSchedule from './AddToSchedule.svelte';
+	  import { contact, systStatus, proInterest } from '../stores/stores.js';
     import { filtContPropInte } from '../assets/funcions/filProperties'
-    import { formatDate, searchProperty } from '../assets/funcions/sevralFunctions';
+    import { formatDate } from '../assets/funcions/sevralFunctions';
+    
 
 
   // Declaraciones
@@ -15,17 +18,16 @@
     let editStatus= false;
     let message;
     let filteredContacts = [];
-    // let systStatus = "start";
     let commInpuyBinnacle;
     let mostButtons = false;
-
+    let proInt = [];
 
   // Funciones
     // Muestra la imagen de propiedad cuendo el punero está sobre la clave
       function mouseOverProp(itemP) {
         mostImageProp = true;
         imgToShow = (db.properties).filter((e) => e.claveEB === (itemP))
-        console.log("estas", imgToShow )
+        // console.log("estas", imgToShow )
       };
     
     // Desaparece la imagen de la propiedad al salir de su area
@@ -48,6 +50,16 @@
       function mostSearch () {
         mostPoperties = true;
       }
+
+      // Search Properties
+        const searchProperty = () => {
+          $systStatus = "showProperties"
+          // console.log($proInterest, $systStatus)
+          return proInterest.set(db.properties.filter((property) => {
+          let propTitle = (property.nameProperty.toLowerCase() + property.colonia.toLowerCase());
+          return propTitle.includes(searchTerm.toLowerCase());
+          }));
+        };
     // Cancel Button ""start""
        const onCancel = () => {
             editStatus = false;
@@ -74,7 +86,17 @@
           console.log("Borraste de mentiras al contacto", $contact.name)
         }
 
-    
+    // Cerrar Shedule                       
+              function close(){
+                isActivated = false;
+              }
+    // Muestra las propiedades que le podrían intesar
+          function fitProp($contact) {
+            $systStatus = "showProperties"
+            filtContPropInte($contact)
+          }
+         
+
 
 </script>
 
@@ -113,13 +135,14 @@
 
 <div>
   <button class="btnCommon" on:click= {addSchedule($contact)}>Programar Evento</button>
-  <!-- {#if isActivated}
-    <AddToSchedule on:closeIt = {close}/>
-    {/if} -->
-    <button class="btnCommon" on:click= {filtContPropInte}>Ver Propiedades de Interes</button>
+    {#if isActivated}
+      <AddToSchedule on:closeIt = {close}/>
+    {/if}
+    <button class="btnCommon" on:click= {fitProp($contact)}>Ver Propiedades de Interes</button>
     <button class="btnCommon" on:click= {mostSearch}> Buscar Propiedad</button>
     {#if mostPoperties}
     <Search bind:searchTerm on:input={searchProperty} />
+    <!-- <Search bind:searchTerm on:input={searchContact} />  -->
     {/if}
   </div>
   
@@ -147,10 +170,16 @@
    </div> 
  </div>
 </div>  
-
+<!-- 
+<div>
+  <CardProperty />
+</div> -->
 
 <style>
 
+  h3{
+    color: blue;
+  }
   .mostImage{
     margin: 0 auto;
     width: 150px;

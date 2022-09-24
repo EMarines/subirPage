@@ -4,6 +4,8 @@ export const systStatus = writable("start")
 
 export const contactI = writable();
 
+export const proInterest = writable([]);
+
 export const contact = writable({
    name: "",
    lastname: "",
@@ -27,3 +29,37 @@ export const contact = writable({
    tagsProperty: [], // Etiquetas
    sendedProperties:[],  // Propiedades enviadas
 });
+
+export const todo = writable({
+   task: "",
+   isComplete: "",
+   createdAt: "",
+   endTask: "",
+   timeTask: "", 
+   notes: ""         
+});
+
+// Decraracion de Prperty
+   export const property = writable ({
+      typeProperty: "",
+      claveEB: "",
+      claveMH: "",
+      nameProperty: "",
+      price: "",
+      beds: "",
+      bathroom: "",
+      halfBathroom: "",
+      park: "",
+      areaBuilding: "",
+      areaTotal: "",
+      description: "",
+      urlImage: "",
+      urlProp: "",
+      urlSinergy: "",
+      colonia: "",
+      selectTP: "",
+      selecTO: "",
+      tagsProperty: [],
+      locaProperty: [],
+      binnacle: [],
+   });

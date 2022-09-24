@@ -1,5 +1,6 @@
 <script>
 	export let searchTerm;
+	// console.log(searchTerm)
 </script>
 
 <div id="search-input-cont">

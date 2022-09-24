@@ -1,4 +1,5 @@
 import { db } from '../db'
+import { proInterest, property } from '../../stores/stores'
 const diaSemana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado' ];
 const mesAnyo = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ];
 let fecha;
@@ -53,19 +54,12 @@ let fecha;
 
 // Search Properties
 
-let systStatus = "start";
-let searchTerm;
-let porpInterest = [];
-let properties = db.properties
+// let systStatus = "start";
+// let searchTerm;
+// let porpInterest = [];
+// let properties = db.properties
 
-        export const searchProperty = () => {
-          systStatus = "propSearch"
-          console.log("estoy en searchProperty")
-          return (porpInterest = db.properties.filter((property) => {
-          let propTitle = (property.nameProperty + property.colonia).toLowerCase();
-          return propTitle.includes(searchTerm.toLowerCase());
-          }));
-        };
+        
 
 
         
