@@ -3,12 +3,12 @@
 	import { db } from '../assets/db';
   import Search from './Search.svelte';
   import AddToSchedule from './AddToSchedule.svelte';
-	  import { contact, systStatus, proInterest } from '../stores/stores.js';
-    import { filtContPropInte } from '../assets/funcions/filProperties'
-    import { formatDate } from '../assets/funcions/sevralFunctions';
-    
+  import { contact, systStatus, proInterest } from '../stores/stores.js';
+  import { filtContPropInte } from '../assets/funcions/filProperties'
+  import { formatDate } from '../assets/funcions/sevralFunctions';
+  import { searchProperty } from '../assets/funcions/search'
 
-
+  console.log($systStatus)
   // Declaraciones
     let mostImageProp = false;
     let imgToShow;
@@ -52,14 +52,11 @@
       }
 
       // Search Properties
-        const searchProperty = () => {
+        function searProp() {
           $systStatus = "showProperties"
-          // console.log($proInterest, $systStatus)
-          return proInterest.set(db.properties.filter((property) => {
-          let propTitle = (property.nameProperty.toLowerCase() + property.colonia.toLowerCase());
-          return propTitle.includes(searchTerm.toLowerCase());
-          }));
-        };
+      let properties = db.properties
+      proInterest.set(searchProperty(properties, searchTerm))
+   }
     // Cancel Button ""start""
        const onCancel = () => {
             editStatus = false;
@@ -78,6 +75,7 @@
 
     // Edit Contact
         function editContact($contact) {
+          $systStatus = "contEditing"
           console.log($contact)
         }
 
@@ -100,7 +98,7 @@
 
 </script>
 
-
+<h1>{$systStatus} {$contact.name}</h1>
 
 <div class="container">
    <div>
@@ -141,7 +139,7 @@
     <button class="btnCommon" on:click= {fitProp($contact)}>Ver Propiedades de Interes</button>
     <button class="btnCommon" on:click= {mostSearch}> Buscar Propiedad</button>
     {#if mostPoperties}
-    <Search bind:searchTerm on:input={searchProperty} />
+    <Search bind:searchTerm on:input={searProp} />
     <!-- <Search bind:searchTerm on:input={searchContact} />  -->
     {/if}
   </div>

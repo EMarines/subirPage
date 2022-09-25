@@ -2,6 +2,7 @@ export const db ={
 	contacts:
 		[
 			{
+				typeContact: "Comprador",
 				name: "Enrique",
             lastname: "Marines",
             telephon: "6145404003",
@@ -12,16 +13,16 @@ export const db ={
             rangeProp: "crt",    // Rango buscado
             contMode: "WA",     // Como contactarlo
             budget: "10000000",       // Presupuesto tope
-            numBeds:"3",
-            numBaths:"3",
-            halfBathroom: "",
-            numParks:"2",
-            modePay: "",      // Modo de pago
+            numBeds: 3,
+            numBaths: 3,
+            halfBathroom: 0,
+            numParks: 2,
+            modePay: "Contado",      // Modo de pago
             selecTP: "Departamento",      // Tipo de propiedad
-            contactType: "",  // Modo de contacto
+            contactType: "Lona en Propiedad",  // Modo de contacto
 				createdAt: "1634402554000",
-            contactStage: "Etapa4", // Etapa del cliente
-            locaProperty: ["Oeste", "Centro Norte"], // Localicacion buscada
+            contactStage: "Etapa 4", // Etapa del cliente
+            locaProperty: ["Oeste", "CentroNorte"], // Localicacion buscada
             tagsProperty: [], // Etiquetas
             sendedProperties:["EB-GY0449"]  // Propiedades enviadas
 			},{				

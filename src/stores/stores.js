@@ -6,6 +6,8 @@ export const contactI = writable();
 
 export const proInterest = writable([]);
 
+export const searchTermG = writable("");
+
 export const contact = writable({
    name: "",
    lastname: "",

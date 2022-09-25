@@ -6,13 +6,14 @@
       import { contact, systStatus, proInterest } from '../stores/stores';
       import SelectedContact from '../components/SelectedContact.svelte';
       import CardProperty from '../components/CardProperty.svelte';
+  import AltaContacto from './AltaContacto.svelte';
+  import About from './About.svelte';
       
    // Declaraciónes
       let searchTerm;
       let filteredContacts = [];
       let listToRender = db.contacts
       $systStatus = "start"
-      // console.log("el valor es ", $systStatus);
    // Funciones 
 
          function addContact(){
@@ -22,7 +23,8 @@
          const selectContact = (item) => {
             contact.set(item)
             $systStatus="contSelect";
-            // console.log($systStatus)
+            // console.log($contact.name)
+            // window.location.href = "/about"
          };
 
    // Input filter ""searchContact""
@@ -75,6 +77,10 @@
                <CardProperty />
             </div>
          {/if}
+      {/if}
+
+      {#if $systStatus === "contEditing"}
+            <AltaContacto {...contact} />
       {/if}
 
    </main>

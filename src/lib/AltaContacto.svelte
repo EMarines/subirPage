@@ -1,5 +1,6 @@
 <script>
-	import Ubication from './../components/Ubication.svelte';
+	import { contact } from '../stores/stores'
+  import Ubication from './../components/Ubication.svelte';
   import Stages from '../components/Stages.svelte'
   import Tags from '../components/Tags.svelte'
   import { typeProperties, modeContact, typeContacts, modePays, ranges, oneTofive, oneToFour, contactMode } from '../assets/parameters';
@@ -9,30 +10,30 @@
   let commBinnacle;
   let noteBinnacle;
 
-  // Array contacto
-      let contact = {
-            name: "",
-            lastname: "",
-            telephon: "",
-            email: "",
-            selecMC: "",      // Modo de contacto
-            propCont: "",     // Propiedad de contacto
-            comContact: "",   // Comentarios
-            rangeProp: "",    // Rango buscado
-            contMode: "",     // Modo de contacto
-            budget: "",       // Presupuesto tope
-            numBeds:"",
-            numBaths:"",
-            halfBathroom: "",
-            numParks:"",
-            modePay: "",      // Modo de pago
-            selecTP: "",      // Tipo de propiedad
-            contactType: "",  // Modo de contacto
-            contactStage: "", // Etapa del cliente
-            locaProperty: [], // Localicacion buscada
-            tagsProperty: [], // Etiquetas
-            sendedProperties:[],  // Propiedades enviadas
-          };
+  // // Array contacto
+  //     let contact = {
+  //           name: "",
+  //           lastname: "",
+  //           telephon: "",
+  //           email: "",
+  //           selecMC: "",      // Modo de contacto
+  //           propCont: "",     // Propiedad de contacto
+  //           comContact: "",   // Comentarios
+  //           rangeProp: "",    // Rango buscado
+  //           contMode: "",     // Modo de contacto
+  //           budget: "",       // Presupuesto tope
+  //           numBeds:"",
+  //           numBaths:"",
+  //           halfBathroom: "",
+  //           numParks:"",
+  //           modePay: "",      // Modo de pago
+  //           selecTP: "",      // Tipo de propiedad
+  //           contactType: "",  // Modo de contacto
+  //           contactStage: "", // Etapa del cliente
+  //           locaProperty: [], // Localicacion buscada
+  //           tagsProperty: [], // Etiquetas
+  //           sendedProperties:[],  // Propiedades enviadas
+  //         };
   // Funciones
           function handleSubmit() {
             if  (!editStatus) {
@@ -100,22 +101,22 @@
                     <div class="">
 
                       <div class="contactInput">
-                        <input type="text" placeholder="Nombre" bind:value={contact.name}  />
+                        <input type="text" placeholder="Nombre" bind:value={$contact.name}  />
                       </div>
                       <div class="contactInput">
-                          <input type="text" placeholder="Apellido" bind:value={contact.lastname} class="form-control"/>
+                          <input type="text" placeholder="Apellido" bind:value={$contact.lastname} class="form-control"/>
                       </div>
                       <div class="contactInput">
-                        <input type="tel" placeholder="telefono" bind:value={contact.telephon} class="form-control"/>
+                        <input type="tel" placeholder="telefono" bind:value={$contact.telephon} class="form-control"/>
                       </div>
                       <div class="contactInput"> 
-                        <input type="email" placeholder="email" bind:value={contact.email} class="form-control"/>
+                        <input type="email" placeholder="email" bind:value={$contact.email} class="form-control"/>
                       </div>
                     </div>
 
        
                      <!-- Tipo de Contacto -->
-                       <select bind:value={contact.typeContact}>
+                       <select bind:value={$contact.typeContact}>
                          <option disabled selected value="">Tipo de Contacto</option>
                          {#each typeContacts as typeContact}
                            <option type="checkbox" value={typeContact}>{typeContact}</option>
@@ -123,11 +124,11 @@
                        </select>
 
                      <!-- Tipo de propiedad buscada -->
-                       <select class="selTP" id="selTP" name="selTP" bind:value={contact.selecTP}>
+                       <select class="selTP" id="selTP" name="selTP" bind:value={$contact.selecTP}>
                            <option disabled selected value="">Tipo de Propiedad</option>
-                           {#each typeProperties as typeProperty}
-                               <option type="checkbox" value={typeProperty}
-                                 >{typeProperty}</option
+                           {#each typeProperties as selecTP}
+                               <option type="checkbox" value={selecTP}
+                                 >{selecTP}</option
                                >
                            {/each}
                          </select>
@@ -146,17 +147,17 @@
              
          <!-- Comentarios del contacto -->
              <div class="col">
-               <input type="textarea" placeholder="Comentarios" bind:value={contact.comContact} class="form-control"/>
+               <input type="textarea" placeholder="Comentarios" bind:value={$contact.comContact} class="form-control"/>
              </div>
 
              
          <!-- Tope de Presupuesto -->
                <div class="col">
-                 <input type="number" placeholder="Presupuesto"bind:value={contact.budget} class="form-control"/>
+                 <input type="number" placeholder="Presupuesto"bind:value={$contact.budget} class="form-control"/>
                </div>
                  
          <!-- Modo de Contacto -->
-               <select bind:value={contact.selecMC}>
+               <select bind:value={$contact.selecMC}>
                  <option disabled selected value="">Modo de Contacto</option>
                  {#each modeContact as mode}
                    <option type="checkbox" value={mode}>{mode}</option>
@@ -164,7 +165,7 @@
                </select>
 
          <!-- Modo de Pago -->
-               <select bind:value={contact.modePay}>
+               <select bind:value={$contact.modePay}>
                  <option disabled selected value="">Modo de Pago</option>
                  {#each modePays as modeP}
                    <option type="checkbox" value={modeP}>{modeP}</option>
@@ -175,7 +176,7 @@
   
        <!-- Características buscadas -->
 
-               <select bind:value={contact.numBeds}>
+               <select bind:value={$contact.numBeds}>
                  <option disabled selected value="" ># Recámaras</option>
                  {#each oneTofive as numberBed}
                    <option type="checkbox" value={numberBed} >{numberBed} Recámaras</option>
@@ -183,7 +184,7 @@
                </select>
 
        <!-- NÚMERO DE BAÑOS -->
-               <select bind:value={contact.numBaths}>
+               <select bind:value={$contact.numBaths}>
                  <option disabled selected value=""># Baños</option>
                  {#each oneToFour as numberBath}
                    <option type="checkbox" value={numberBath}>{numberBath} baños</option>
@@ -191,7 +192,7 @@
                </select>
 
        <!-- Medios baños -->
-             <select bind:value={contact.halfBathroom}>
+             <select bind:value={$contact.halfBathroom}>
                <option disabled selected value=""># Medios Baños</option>
                {#each oneToFour as numberHalfBath}
                  <option type="checkbox" value={numberHalfBath}>{numberHalfBath} Medios baños</option>
@@ -199,7 +200,7 @@
              </select>
 
        <!-- NÚMERO DE ESTACIONAMIENTOS -->
-               <select bind:value={contact.numParks}>
+               <select bind:value={$contact.numParks}>
                  <option disabled selected value=""># Estacionamientos</option>
                  {#each oneToFour as numberParks}
                    <option type="checkbox" value={numberParks}>{numberParks} Estacionamientos</option>
@@ -207,7 +208,7 @@
                </select>
 
        <!-- RANGO DE PRECIOS -->
-               <select bind:value={contact.rangeProp}>
+               <select bind:value={$contact.rangeProp}>
                  <option disabled selected value="">Rango Buscado</option>
                  {#each ranges as range}
                    <option type="checkbox" value={range}>{range}</option>
@@ -215,7 +216,7 @@
                </select>
 
        <!-- Modo de contacto -->
-               <select bind:value={contact.contMode}>
+               <select bind:value={$contact.contMode}>
                  <option disabled selected value="">Modo de Contacto</option>
                  {#each contactMode as mode}
                    <option type="checkbox" value={mode}>{mode}</option>
@@ -223,9 +224,9 @@
                </select>
 
     <!-- Tags -->
-          <Ubication bind:ubication={contact.locaProperty}/>
-          <Stages bind:value = {contact.contactStage} />
-          <Tags bind:tag = {contact.tagsProperty} />
+          <Ubication bind:ubication={$contact.locaProperty}/>
+          <Stages bind:value = {$contact.contactStage} />
+          <Tags bind:tag = {$contact.tagsProperty} />
 
      <!-- Botones -->
            
