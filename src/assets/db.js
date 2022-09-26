@@ -201,7 +201,7 @@ export const db ={
 				colonia: "Quintas del Sol",
 				selectTP: "Casa",
 				selecTO: "Venta",
-				tagsProperty: ["Fracc. Privado", "Frente a Parque"],
+				tagsProperty: ["Fracc. Privado", "Frente a Parque", "Recamara en P.B."],
 				locaProperty: ["Oeste"],
 			}, {
 				typeProperty: "Casa",

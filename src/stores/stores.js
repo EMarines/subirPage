@@ -9,6 +9,7 @@ export const proInterest = writable([]);
 export const searchTermG = writable("");
 
 export const contact = writable({
+   typeContact: "",  // Tipo de contacto
    name: "",
    lastname: "",
    telephon: "",
@@ -30,15 +31,6 @@ export const contact = writable({
    locaProperty: [], // Localicacion buscada
    tagsProperty: [], // Etiquetas
    sendedProperties:[],  // Propiedades enviadas
-});
-
-export const todo = writable({
-   task: "",
-   isComplete: "",
-   createdAt: "",
-   endTask: "",
-   timeTask: "", 
-   notes: ""         
 });
 
 // Decraracion de Prperty
@@ -64,4 +56,14 @@ export const todo = writable({
       tagsProperty: [],
       locaProperty: [],
       binnacle: [],
+   });
+
+// Declaracion de todos
+   export const todo = writable({
+      task: "",
+      isComplete: "",
+      createdAt: "",
+      endTask: "",
+      timeTask: "", 
+      notes: ""         
    });

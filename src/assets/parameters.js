@@ -49,8 +49,8 @@
           export const ranges = ["Rango", "PRM", "SGN", "TRC", "CRT", "QNT", "SXT", "SPT"];
 
     // One to X
-          export const oneTofive = [ 1, 2, 3, 4, 5];
-          export const oneToFour = [1, 2, 3, 4];
+          export const oneTofive = [ 0, 1, 2, 3, 4, 5];
+          export const oneToFour = [0, 1, 2, 3, 4];
 
    // Etapas del cliente
             export const contactStage = ["Etapa1", "Etapa2", "Etapa3", "Etapa4", "Etapa5" ] 

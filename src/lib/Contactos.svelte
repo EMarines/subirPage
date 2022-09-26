@@ -78,10 +78,10 @@
             </div>
          {/if}
       {/if}
-
+<!-- 
       {#if $systStatus === "contEditing"}
             <AltaContacto {...contact} />
-      {/if}
+      {/if} -->
 
    </main>
 
