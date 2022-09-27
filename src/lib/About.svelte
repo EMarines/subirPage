@@ -2,7 +2,7 @@
 //   import AddToSchedule from "src/components/AddToSchedule.svelte";
 // import { systStatus } from "src/stores/stores";
 import { contact, systStatus } from '../stores/stores'
-$: console.log("hhhh", $contact.name)
+console.log("hhhh", $contact)
 let cont;
 $: cont = $contact.name
 
@@ -12,4 +12,4 @@ $: cont = $contact.name
 
 <h3>ffff{$systStatus}</h3>
 
-<h2>fffff{$cont.budget}</h2>
+<h2>fffff{$contact.lastname}</h2>

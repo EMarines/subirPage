@@ -4,23 +4,16 @@
       import Ubication from '../components/Ubication.svelte'
       import Stages from '../components/Stages.svelte'
       import Tags from '../components/Tags.svelte'
-      import { modeContact, modePays, oneTofive, oneToFour, ranges, contactMode } from '../assets/parameters'
+      import { typeProperties, modePays, oneTofive, oneToFour, ranges, contactMode } from '../assets/parameters'
 
 </script>
 
-    <!-- Modo de Contacto -->
-         <select bind:value={$contact.selecMC}>
-            <option disabled selected value="">Modo de Contacto</option>
-            {#each modeContact as mode}
-              <option type="checkbox" value={mode}>{mode}</option>
-            {/each}
-          </select>
-
-    <!-- Modo de Pago -->
-          <select bind:value={$contact.modePay}>
-            <option disabled selected value="">Modo de Pago</option>
-            {#each modePays as modeP}
-              <option type="checkbox" value={modeP}>{modeP}</option>
+    
+     <!-- Tipo de propiedad buscada -->
+          <select class="selTP" id="selTP" name="selTP" bind:value={$contact.selecTP}>
+            <option disabled selected value="">Tipo de Propiedad</option>
+            {#each typeProperties as selecTP}
+                  <option type="checkbox" value={selecTP}>{selecTP}</option>
             {/each}
           </select>
 
@@ -53,19 +46,26 @@
             {/each}
           </select>
 
-          <select bind:value={$contact.rangeProp}>
+    <!-- Comentarios del contacto -->
+          <div class="col">
+            <textarea  placeholder="Comentarios" cols="65" rows="5" bind:value={$contact.comContact} class="form-control"/>
+            <!-- <textarea on:keypress={seleTypeAction} class="texArea" cols="65" rows="5" bind:value = {commInpuyBinnacle} placeholder ="Ingresa un comentario"/>  -->
+
+          </div>
+
+          <!-- <select bind:value={$contact.rangeProp}>
             <option disabled selected value="">Rango Buscado</option>
             {#each ranges as range}
               <option type="checkbox" value={range}>{range}</option>
             {/each}
-          </select>
+          </select> -->
 
-          <select bind:value={$contact.contMode}>
+          <!-- <select bind:value={$contact.contMode}>
             <option disabled selected value="">Modo de Contacto</option>
             {#each contactMode as mode}
               <option type="checkbox" value={mode}>{mode}</option>
             {/each}
-          </select>
+          </select> -->
 
     <!-- Tags -->
         <Ubication bind:ubication={$contact.locaProperty}/>

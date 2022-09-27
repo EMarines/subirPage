@@ -3,7 +3,7 @@
       import { onMount } from 'svelte';
       import { db } from '../assets/db';
       import { contact } from '../stores/stores'
-      import { typeContacts, typeProperties } from '../assets/parameters'
+      import { typeContacts, modeContact, modePays } from '../assets/parameters'
 
    // Declaraciones
       var allPropertiesName = [];
@@ -62,12 +62,21 @@
                   {/each}
             </select>
 
-   <!-- Tipo de propiedad buscada -->
-            <select class="selTP" id="selTP" name="selTP" bind:value={$contact.selecTP}>
-               <option disabled selected value="">Tipo de Propiedad</option>
-               {#each typeProperties as selecTP}
-                     <option type="checkbox" value={selecTP}>{selecTP}</option>
+   <!-- Modo de Contacto -->
+            <select bind:value={$contact.selecMC}>
+               <option disabled selected value="">Modo de Contacto</option>
+               {#each modeContact as mode}
+               <option type="checkbox" value={mode}>{mode}</option>
                {/each}
             </select>
 
-         </div>
+   <!-- Modo de Pago -->
+            <select bind:value={$contact.modePay}>
+               <option disabled selected value="">Modo de Pago</option>
+               {#each modePays as modeP}
+               <option type="checkbox" value={modeP}>{modeP}</option>
+               {/each}
+            </select>
+
+            </div>
+  

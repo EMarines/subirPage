@@ -9,7 +9,7 @@
     import About from './About.svelte'
     import Sinergias from "./Sinergias.svelte";
     import AltaContacto from './AltaContacto.svelte'
-    // import SelectedContact from './SelectedContact.svelte';
+    import AltaPropiedad from './AltaPropiedad.svelte';
     import logoMH from '../assets/images/logoMH.png'
    
    
@@ -70,6 +70,10 @@
 
           <Route path="altaContacto">
             <AltaContacto />
+          </Route>
+
+          <Route path="altaPropiedad">
+            <AltaPropiedad />
           </Route>
 
           <!-- <Route path="selectedContact">

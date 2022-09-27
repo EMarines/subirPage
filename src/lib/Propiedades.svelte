@@ -11,6 +11,10 @@
 
    let searchTerm;
 
+   function altaProp() {
+      window.location.href = '/altaPropiedad';
+   }
+
    function searProp() {
       $systStatus = "showProperties"
       let properties = db.properties
@@ -21,6 +25,8 @@
 </script>
 
 <h1>Estas en Propiedades</h1>
+
+<button on:click={altaProp}>Alta de Propiedad</button>
 
 <Search bind:searchTerm on:input={searProp} />
 
