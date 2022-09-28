@@ -4,8 +4,10 @@
       import { scale } from 'svelte/transition';
 	   import { expoInOut } from 'svelte/easing';
 
-      let checkedProperty=[];
-      let listToRender=[];
+      export let urlImage, claveEB, nameProperty, beds, bathroom, park, areaBuilding, areaTotal, price
+
+      // let checkedProperty=[];
+      // let listToRender=[];
 
       if($systStatus === "start"){
          console.log($systStatus)
@@ -18,61 +20,43 @@
 
       }
    </script>
-   <main id="bookshelf">
+   <main >
       <!-- {@debug listToRender} -->
-      {#each $proInterest as item}
-         <section on:click={selectProduct($property)} class="book" transition:scale={{duration: 500, easing: expoInOut}}>                  
+      <!-- {#each $proInterest as item}
+         <section on:click={selectProduct($property)} class="book" transition:scale={{duration: 500, easing: expoInOut}}>                   -->
             <section class="book-top-info" >
                <figure class="bkcont" >
-                  <img src={item.urlImage} alt={item.claveEB} class="bkcover" >
-                  <div class="language">{item.claveEB}</div>
-                  <figcaption>{item.nameProperty}</figcaption>
+                  <img src={urlImage} alt={claveEB} class="bkcover" >
+                  <div class="language">{claveEB}</div>
+                  <figcaption>{nameProperty}</figcaption>
                </figure>
          </section> 
       
          <section class="book-bottom-links">
             <section class="from-pariyatti available-at">
                <div class="buy-options-cont">
-                  <div>{item.beds} Recámaras</div>
-                  <div>{item.bathroom} Baños</div>
-                  <div>{item.park} Estacionamientos</div>
-                  <div>{item.areaBuilding} m2 de Contruccion</div>
-                  <div>{item.areaTotal} m2 de Terreno</div>
+                  <div>{beds} Recámaras</div>
+                  <div>{bathroom} Baños</div>
+                  <div>{park} Estacionamientos</div>
+                  <div>{areaBuilding} m2 de Contruccion</div>
+                  <div>{areaTotal} m2 de Terreno</div>
                   <br>
                   <div>
-                     Precio $: {item.price}
+                     Precio $: {price}
                      <!-- <input type="checkbox" value={property.nameProperty} class="form-check" bind:group={checkedProperty}>  -->
-                     <input type="checkbox" value={item} class="form-check" bind:group={checkedProperty}>                  
+                     <!-- <input type="checkbox" value={item} class="form-check" bind:group={checkedProperty}>                   -->
                   </div>
                </div>
             </section>
           </section>                  
-        </section>
-      {/each}
+        <!-- </section>
+      {/each} -->
    </main>
 
 
 <style>
 
-   main#bookshelf {
-      width: 100%;
-      margin: 10px;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: center; 
-   }
 
-   .book { 
-      width: 280px;
-      min-height: 354px;
-      border: 4px solid #BA5626; 
-      border-radius: 3px;
-      box-shadow: 1px 1px 0 black;
-      margin: 5px;
-      background-color: #e4ddcf;
-   }
 
    .book-top-info {
       width: 100%;

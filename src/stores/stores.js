@@ -1,12 +1,12 @@
 import { writable, readable } from 'svelte/store';
 
-export const systStatus = writable("start")
+export const systStatus = writable("")
 
 export const contactI = writable();
 
 export const proInterest = writable([]);
 
-export const searchTermG = writable("");
+export const searchTermG = writable("start");
 
 export const contact = writable({
    typeContact: "",  // Tipo de contacto
@@ -28,6 +28,7 @@ export const contact = writable({
    selecTP: "",      // Tipo de propiedad
    contactType: "",  // Modo de contacto
    contactStage: "", // Etapa del cliente
+   createdAt: "",    // Fecha de alta
    locaProperty: [], // Localicacion buscada
    tagsProperty: [], // Etiquetas
    sendedProperties:[],  // Propiedades enviadas
