@@ -10,6 +10,7 @@
     import Sinergias from "./Sinergias.svelte";
     import AltaContacto from './AltaContacto.svelte'
     import AltaPropiedad from './AltaPropiedad.svelte';
+    // import SelectProperty from '../components/SelectProperty.svelte';
     import logoMH from '../assets/images/logoMH.png'
    
    
@@ -77,7 +78,7 @@
           </Route>
 
           <!-- <Route path="selectedContact">
-            <SelectedContact />
+            <SelectProperty />
           </Route> -->
           
         </main>

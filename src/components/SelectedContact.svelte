@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
   // Importaciones
     import { db } from '../assets/db';
     import Search from './Search.svelte';
