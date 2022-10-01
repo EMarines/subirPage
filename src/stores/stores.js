@@ -6,6 +6,8 @@ export const contactI = writable();
 
 export const proInterest = writable([]);
 
+export const conInterest = writable([])
+
 export const searchTermG = writable("start");
 
 export const contact = writable({
@@ -28,7 +30,7 @@ export const contact = writable({
    selecTP: "",      // Tipo de propiedad
    contactType: "",  // Modo de contacto
    contactStage: "", // Etapa del cliente
-   createdAt: "",    // Fecha de alta
+   createdAt: "",
    locaProperty: [], // Localicacion buscada
    tagsProperty: [], // Etiquetas
    sendedProperties:[],  // Propiedades enviadas

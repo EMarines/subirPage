@@ -10,9 +10,9 @@ export const db ={
             selecMC: "Lona en Propiedad",      // Modo de contacto
             propCont: "Lomas del Santuario Jma",     // Propiedad de contacto
             comContact: "Busca casa de 4 recamaras",   // Comentarios
-            rangeProp: "crt",    // Rango buscado
+            rangeProp: "qnt",    // Rango buscado
             contMode: "WA",     // Como contactarlo
-            budget: "10000000",       // Presupuesto tope
+            budget: "",       // Presupuesto tope
             numBeds: 3,
             numBaths: 3,
             halfBathroom: 0,
@@ -22,11 +22,34 @@ export const db ={
             contactType: "Lona en Propiedad",  // Modo de contacto
 				createdAt: "1634402554000",
             contactStage: "Etapa 4", // Etapa del cliente
-            locaProperty: ["Oeste", "CentroNorte"], // Localicacion buscada
+            locaProperty: ["Oeste", "Sur", "Centro Norte"], // Localicacion buscada
             tagsProperty: [], // Etiquetas
             sendedProperties:["EB-GY0449"]  // Propiedades enviadas
 			},{				
 					name: "Sebastián",
+					lastname: "Marines",
+					telephon: "6145404003",
+					email: "emarines@live.com.mx",
+					selecMC: "Lona en Propiedad",      // Modo de contacto
+					propCont: "Lomas del Santuario Jma",     // Propiedad de contacto
+					comContact: "Busca casa de 4 recamaras",   // Comentarios
+					rangeProp: "qnt",    // Rango buscado
+					contMode: "WA",     // Como contactarlo
+					budget: "10000000",       // Presupuesto tope
+					numBeds:"3",
+					numBaths:"2",
+					halfBathroom: "1",
+					numParks:"2",
+					modePay: "",      // Modo de pago
+					selecTP: "Casa",      // Tipo de propiedad
+					contactType: "",  // Modo de contacto
+					createdAt: "1634402554000",
+					contactStage: "Etapa3", // Etapa del cliente
+					locaProperty: [], // Localicacion buscada
+					tagsProperty: ["Frente a Parque"], // Etiquetas
+					sendedProperties:["EB-GY0449"],  // Propiedades enviadas
+				},{				
+					name: "Ricardo",
 					lastname: "Marines",
 					telephon: "6145404003",
 					email: "emarines@live.com.mx",
@@ -42,29 +65,6 @@ export const db ={
 					numParks:"2",
 					modePay: "",      // Modo de pago
 					selecTP: "Casa",      // Tipo de propiedad
-					contactType: "",  // Modo de contacto
-					createdAt: "1634402554000",
-					contactStage: "Etapa3", // Etapa del cliente
-					locaProperty: ["Centro Norte", "Este", "Sur"], // Localicacion buscada
-					tagsProperty: ["Frente a Parque"], // Etiquetas
-					sendedProperties:["EB-GY0449"],  // Propiedades enviadas
-				},{				
-					name: "Ricardo",
-					lastname: "Marines",
-					telephon: "6145404003",
-					email: "emarines@live.com.mx",
-					selecMC: "Lona en Propiedad",      // Modo de contacto
-					propCont: "Lomas del Santuario Jma",     // Propiedad de contacto
-					comContact: "Busca casa de 4 recamaras",   // Comentarios
-					rangeProp: "crt",    // Rango buscado
-					contMode: "WA",     // Como contactarlo
-					budget: "13500000",       // Presupuesto tope
-					numBeds:"4",
-					numBaths:"3",
-					halfBathroom: "1",
-					numParks:"3",
-					modePay: "",      // Modo de pago
-					selecTP: "",      // Tipo de propiedad
 					contactType: "",		// Modo de contacto
 					createdAt: "1634402554000",  // Fecha de alta
 					contactStage: "Etapa2", // Etapa del cliente
@@ -81,18 +81,18 @@ export const db ={
 					comContact: "Busca casa de 4 recamaras",   // Comentarios
 					rangeProp: "crt",    // Rango buscado
 					contMode: "WA",     // Como contactarlo
-					budget: "16500000",       // Presupuesto tope
-					numBeds:"4",
-					numBaths:"3",
+					budget: "8500000",       // Presupuesto tope
+					numBeds:"3",
+					numBaths:"2",
 					halfBathroom: "1",
-					numParks:"3",
+					numParks:"2",
 					modePay: "",      // Modo de pago
-					selecTP: "",      // Tipo de propiedad
+					selecTP: "Casa",      // Tipo de propiedad
 					contactType: "",  // Modo de contacto
 					createdAt: "1634402554000",
 					contactStage: "Etapa1", // Etapa del cliente
-					locaProperty: [], // Localicacion buscada
-					tagsProperty: [], // Etiquetas
+					locaProperty: ["Oeste", "Centro Norte"], // Localicacion buscada
+					tagsProperty: ["Frente a Parque"], // Etiquetas
 					sendedProperties:[],  // Propiedades enviadas
 				 }
 		],
@@ -100,6 +100,7 @@ export const db ={
 		[
 			 {
 				typeProperty: "Departamento",
+				rangeProp: "qnt",
 				claveEB: "EB-LD0738",
 				claveMH: "EB-LD0738",
 				nameProperty: "San Felipe Ema",
@@ -120,7 +121,8 @@ export const db ={
 				tagsProperty: [],
 				locaProperty: ["Centro Norte"],
 			}, {
-				typeProperty: "Casa",
+				typeProperty: "Departamento",
+				rangeProp: "qnt",
 				claveEB: "EB-KS7661",
 				claveMH: "EB-KS7661",
 				nameProperty: "Lomas del Santuario Jma",
@@ -136,10 +138,10 @@ export const db ={
 				urlProp: "https://assets.easybroker.com/property_images/3057661/48771301/medium_EB-KS7661.jpg?version=1655838715",
 				urlSinergy: "",
 				colonia: "Lomas del Santuario",
-				selectTP: "Casa",
+				selectTP: "Departamento",
 				selecTO: "Venta",
-				tagsProperty: ["Frente a Parque"],
-				locaProperty: ["Este"],
+				tagsProperty: [],
+				locaProperty: ["Centro Sur"],
 			}, {
 				typeProperty: "Casa",
 				claveEB: "EB-GY0449",
@@ -160,15 +162,15 @@ export const db ={
 				selectTP: "Casa",
 				selecTO: "Venta",
 				tagsProperty: ["Fracc. Privado", "Frente a Parque"],
-				locaProperty: ["Oeste"],
+				locaProperty: ["Centro Norte"],
 			}, {
 				typeProperty: "Casa",
 				claveEB: "EB-GY0449",
 				claveMH: "EB-GY0449",
 				nameProperty: "Pedregal de San Angel Jsa",
 				price: "8000000",
-				beds: "3",
-				bathroom: "3",
+				beds: "4",
+				bathroom: "4",
 				halfBathroom: "1",
 				park: "2",
 				areaBuilding: "300",
@@ -202,13 +204,13 @@ export const db ={
 				selectTP: "Casa",
 				selecTO: "Venta",
 				tagsProperty: ["Fracc. Privado", "Frente a Parque", "Recamara en P.B."],
-				locaProperty: ["Oeste"],
+				locaProperty: ["Centro Norte"]
 			}, {
 				typeProperty: "Casa",
 				claveEB: "EB-GY0449",
 				claveMH: "EB-GY0449",
 				nameProperty: "San Charbel Ema",
-				price: "8000000",
+				price: "18000000",
 				beds: "3",
 				bathroom: "3",
 				halfBathroom: "1",

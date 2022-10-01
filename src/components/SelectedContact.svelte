@@ -1,6 +1,6 @@
 <script>
-// @ts-nocheck
-
+  // @ts-nocheck
+	import Propiedades from './../lib/Propiedades.svelte';
   // Importaciones
     import { db } from '../assets/db';
     import Search from './Search.svelte';
@@ -41,7 +41,7 @@
     // Desaparece la imagen de la propiedad al salir de su area
       function mouseLeaveProp() {
         mostImageProp = false
-        console.log("saliste")
+        // console.log("saliste")
       };
 
     // Abre el link de la página web
@@ -57,23 +57,24 @@
     // Muestra search Properties
       function mostSearch () {
         mosrBusq = true;
-        console.log($systStatus)
+        // console.log($systStatus, $contact)
       };
 
     // Input filter ""searchContact""
         const searProp = () => {
           showProp = true;
-              return filteredProperties = db.properties.filter((propety) => {
+              return $proInterest = db.properties.filter((propety) => {
               let contInfo = (propety.nameProperty + " " + propety.colonia + " " + propety.claveEB).toLowerCase();
-             return contInfo.includes(searchTerm.toLowerCase());
+              return contInfo.includes(searchTerm.toLowerCase());
           });  
         };
 
 
     // Muestra las propiedades que le podrían intesar
       function fitProp($contact) {
-        showProp = true;
+        // console.log($contact)
         filtContPropInte($contact)
+        showProp = true;
       };
 
     // Cancel Button ""start""
@@ -133,7 +134,7 @@
             <h2>{$contact.name} {$contact.lastname}</h2>
             <p>Fecha Alta: {formatDate($contact.createdAt)}</p> 
             <p>Busca  {$contact.selecTP}, de {$contact.numBeds} recámaras,  {$contact.numBaths} baños y {$contact.numParks} estacionamientos </p>
-            <p>Presupuesto tope: {$contact.budget}</p>
+            <p>Presupuesto tope: <strong>{$contact.budget}</strong> : Tipo de propiedad buscada: <strong>{$contact.selecTP}</strong></p>
             <p>Teléfono: <strong>{$contact.telephon}</strong> ---- Email: <strong>{$contact.email}</strong> </p>   
             <p>Preferencias: {($contact.tagsProperty).join(',  ')}</p>
             <p> Ubicaciones: {($contact.locaProperty).join(',  ')}</p>
@@ -169,7 +170,6 @@
               <button class="btnCommon" on:click = {mostSearch}> Buscar Propiedad</button>
               {#if mosrBusq}
                 <Search bind:searchTerm on:input={searProp} />
-              <!-- <Search bind:searchTerm on:input={searchContact} />  -->
               {/if}
           </div>
             
@@ -201,12 +201,17 @@
     <!-- Propiedades de interés -->
               {#if showProp} 
                 <main id="bookshelf">
-                  {#each filteredProperties as item}
+                  <h3>Propiedades encontradas: {$proInterest.length}</h3>
+                                   
+                  {#each $proInterest as item}
                   <section class = "property" on:click={selectProduct} transition:scale={{duration: 500, easing: expoInOut}}>                  
                     <input type="checkbox" value={item.urlProp} class="form-check" bind:group={contCheck}/>	
                     <CardProperty {...item} />
                   </section>
                   {/each}
+                  {#if $proInterest.length === 0}
+                      <h3>"No hay Propiedades para este contacto"</h3>
+                  {/if}
                 </main>
               {/if}
 

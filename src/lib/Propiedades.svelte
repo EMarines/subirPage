@@ -21,11 +21,12 @@
       let item;
       let seeProp = true;
 
+      $proInterest = db.properties;
    // Funciones
          function altaProp() {
          }
          
-         function searProp() {
+         function searProp(searchTerm) {
             $systStatus = "showProperties"
             let properties = db.properties
             // window.location.href = '/about';
@@ -44,9 +45,9 @@
 
          {#if seeProp}  
             <button on:click={altaProp}>Alta de Propiedad</button>
-            <Search bind:searchTerm on:input={searProp} />
+            <Search bind:searchTerm on:input={() => searProp(searchTerm)} />
             <main id="bookshelf">
-               {#each db.properties as item}
+               {#each $proInterest as item}
                   <section class = "property" on:click={() => selectProduct(item)} transition:scale={{duration: 500, easing: expoInOut}}>                  
                      <input type="checkbox" value={item.urlProp} class="form-check" bind:group={contCheck}/>	
                      <CardProperty {...item} />
