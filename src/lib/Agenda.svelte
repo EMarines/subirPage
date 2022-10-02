@@ -1,6 +1,8 @@
 <script>
    import { db } from '../assets/db'
 	import { todo } from '../stores/stores'
+   import { fly, fade } from 'svelte/transition';
+
    import Schedule from '../components/Schedule.svelte'
 
 // Declaraciones
@@ -41,25 +43,46 @@
 
 	}
 
+
+
 // Elimina la tarea
-   const deleteTodo = async (item) => {
-      let confDelete = confirm("Quieres borrarlo definitivmente?")
-      if(confDelete == true){
-         await db.collection("todos").doc(item.id).delete();
-      }
-   };
+   // const deleteTodo = async (item) => {
+   //    let confDelete = confirm("Quieres borrarlo definitivmente?")
+   //    if(confDelete == true){
+   //       await db.collection("todos").doc(item.id).delete();
+   //    }
+   // };
 
 // Agrega la tarea con el "Enter"
-   const keyIsPressed = (event) => {
-      if (event.key ==="Enter"){
-         addTodo()
-      };
-   };
+   // const keyIsPressed = (event) => {
+   //    if (event.key ==="Enter"){
+   //       addTodo()
+   //    };
+   // };
  
 </script>
 
 
 <div class="container">
+   <!-- <div class="background" transition:fade on:click ={close}/> -->
+
+      <div class="pop-up" transition:fly>         
+         <div>
+            <!-- <input type="text" class="inputTask" cols="56" rows="1"  placeholder = "Agrega una Tarea o Cita" bind:value = {todo.task} /> -->
+         </div>
+         <div class="contDate">
+            <!-- <input type="time"class="inputDate" bind:value = {todo.timeTask} />
+            <input type="date" class="inputDate" bind:value = {todo.endTask} />  -->
+         </div>
+         <div>
+            <!-- <textarea name="notes" id="" cols="56" rows="5" bind:value = {todo.notes} placeholder ="descripción"></textarea> -->
+         </div>
+         
+         <div>
+            <!-- <button on:click={addTodo}>Guardar</button>
+            <button on:click={close}>Cancelar</button> -->
+         </div>
+      </div>   
 
 <h1>Agenda</h1>
 
@@ -70,8 +93,8 @@
       {#if !item.timeTask}
          <li class="schedule" class:complete={item.isComplete}>
             <span>
-               <button on:click={ () => markTodoAsComplete(item) }>✔</button>
-               <button on:click={ () => deleteTodo(item) }>✖</button>
+               <!-- <button on:click={ () => markTodoAsComplete(item) }>✔</button>
+               <button on:click={ () => deleteTodo(item) }>✖</button> -->
             </span>
             <spam>
                {item.endTask} -*-
@@ -93,8 +116,8 @@
       {#if item.timeTask}
          <li class="schedule" class:complete={item.isComplete}>
             <span>
-               <button on:click={ () => markTodoAsComplete(item) }>✔</button>
-               <button on:click={ () => deleteTodo(item) }>✖</button>
+               <!-- <button on:click={ () => markTodoAsComplete(item) }>✔</button>
+               <button on:click={ () => deleteTodo(item) }>✖</button> -->
             </span>
             <spam>
                {item.timeTask} -*-
