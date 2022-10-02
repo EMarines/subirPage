@@ -63,7 +63,7 @@
 
 <h1>Agenda</h1>
 
-<Schedule />
+<!-- <Schedule /> -->
 <h3>Tareas</h3>
 <ol>
    {#each db.todos as item}
