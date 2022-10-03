@@ -7,6 +7,13 @@
   import Sinergias from './Sinergias.svelte';
   import Schedule from '../components/Schedule.svelte'
   import Binnacle from '../components/Binnacle.svelte'
+  import user from '../assets/images/add-user.png';
+  import home from '../assets/images/house.png';
+  import schedule from '../assets/images/schedule.png';
+  import team from '../assets/images/team.png';
+
+
+  
   // import { formatDate } from '../assets/funcions/sevralFunctions'
   
 
@@ -32,7 +39,7 @@
         <Link to= "/contactos" title = "contactos">
           <div class="container" >
             <div class="optionCard">
-              <img src="src/assets/images/add-user.png" alt='Buzon' class="profile-img">
+              <img src={user} alt='Buzon' class="profile-img">
               <h1 class="name">Contactos</h1>
             </div>
           </div>  
@@ -41,7 +48,7 @@
         <Link to= "/propiedades" title = "propiedades">
           <div class="container" >
             <div class="optionCard">
-              <img src="src/assets/images/house.png" alt='propiedad' class="profile-img">
+              <img src={home} alt='propiedad' class="profile-img">
               <h1 class="name">Propiedades</h1>
             </div>
           </div>  
@@ -50,7 +57,7 @@
         <Link to= "/agenda" title = "agenda">
           <div class="container" >
             <div class="optionCard">
-              <img src="src/assets/images/schedule.png" alt='agenda' class="profile-img">
+              <img src={schedule} alt='agenda' class="profile-img">
               <h1 class="name">Agenda</h1>
             </div>
           </div>  
@@ -59,7 +66,7 @@
         <Link to= "/sinergias" title = "sinergias">
           <div class="container" >
             <div class="optionCard">
-              <img src="src/assets/images/team.png" alt='sinergias' class="profile-img">
+              <img src= {team} alt='sinergias' class="profile-img">
               <h1 class="name">Sinergias</h1>
             </div>
           </div>  
