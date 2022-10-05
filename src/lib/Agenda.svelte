@@ -1,13 +1,9 @@
 <script>
-   import { db } from '../assets/db'
-	import { todo } from '../stores/stores'
+   import schedule from '../assets/images/schedule.png';
    import { fly, fade } from 'svelte/transition';
-
-   import Schedule from '../components/Schedule.svelte'
-
-// Declaraciones
-
-   // let todos = [];
+   import { db } from '../assets/db';
+   import { dbBinnacle } from '../firebase'
+   
    let error = "";
    let ordeTodos = [];
 
@@ -32,10 +28,13 @@
    //       todo = {};
    //    };
 
-// Edita la tarea     
+// Edita la tarea 
+
+   // async function markTodoAsComplete() {     
+
    const markTodoAsComplete = async (item) => {
       item.isComplete = !item.isComplete
-      await db.collection("todos").doc(item.id).update(item);
+      // await db.collection("todos").doc(item.id).update(item);
       //   window.location.href='/'
    };
 
@@ -62,8 +61,14 @@
  
 </script>
 
+<h1>Agenda</h1>
+<img src={schedule} alt="schedule" class="imgTitle">
+
+<!-- <button on:click={getData}>click</button> -->
 
 <div class="container">
+
+   
    <!-- <div class="background" transition:fade on:click ={close}/> -->
 
       <div class="pop-up" transition:fly>         
@@ -84,10 +89,12 @@
          </div>
       </div>   
 
-<h1>Agenda</h1>
 
 <!-- <Schedule /> -->
 <h3>Tareas</h3>
+      {#each dbBinnacle as item}
+         <h1>bitácora:gg {item.date} {item.comment}</h1>
+      {/each}
 <ol>
    {#each db.todos as item}
       {#if !item.timeTask}
@@ -143,6 +150,11 @@
         font-size: 1.4rem;
         text-align: left;
     }
+
+    .imgTitle{
+      max-width: 148px;
+   }
+
 
 	
 

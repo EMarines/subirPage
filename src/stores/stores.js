@@ -68,5 +68,14 @@ export const contact = writable({
       createdAt: "",
       endTask: "",
       timeTask: "", 
-      notes: ""         
+      notes: "",
+      user: ""        
    });
+
+// Users
+   export const user = writable({
+      user: "",
+      email: "",
+      typeUser: "",
+      password: ""
+   })

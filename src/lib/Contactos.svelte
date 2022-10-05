@@ -6,12 +6,16 @@
       import user from '../assets/images/add-user.png';
       import { contact, systStatus, proInterest, conInterest} from '../stores/stores';
       import SelectedContact from '../components/SelectedContact.svelte';
+      import { dbContacts } from '../firebase'
+
+      // import { collection, addDoc, getDoc, getDocs } from 'firebase/firestore'
       // import CardProperty from '../components/CardProperty.svelte';
-//   import AltaContacto from './AltaContacto.svelte';
-//   import About from './About.svelte';
+      //   import AltaContacto from './AltaContacto.svelte';
+      //   import About from './About.svelte';
       
    // Declaraciónes
       let searchTerm;
+      // let dbContacts = [];
       // let filteredContacts = [];
       // let commInpuyBinnacle;
       // let commBinnacle;
@@ -20,8 +24,22 @@
       // let showList = false;
       // let item;
 
-      $conInterest = db.contacts
+      // $conInterest = db.contacts
       $systStatus = "start"
+      $conInterest = dbContacts
+
+
+      
+//    const contactos = collection(database, "contacts")
+
+// (function() {
+//   getDocs(contactos)
+//   .then((response) => {
+//      return dbContacts = response.docs.map((item) => {
+//         return {... item.data()};
+//      })
+//   })
+// })();
 
    // Funciones 
       // Agregar contacto
@@ -43,6 +61,7 @@
             return contInfo.includes(searchTerm.toLowerCase());
             });
          };
+
 
 </script>
 

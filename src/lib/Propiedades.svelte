@@ -1,19 +1,21 @@
 <script>
    // Importaciones
-      // import { properties } from './../assets/parameters.js';
-      // import { searchProperty } from './../assets/funcions/search.js';
-      // import checkLoggedIn from "./router";
-      // import {navigate} from "svelte-routing";
-      import { db } from '../assets/db'
-      import Search from '../components/Search.svelte';
-      import CardProperty from '../components/CardProperty.svelte';
-      import selectedProperty from '../components/SelectProperty.svelte'
-      import { property, systStatus, proInterest } from '../stores/stores'
-      import { searchProperty } from '../assets/funcions/search'
-      import { scale } from 'svelte/transition';
-      import { expoInOut } from 'svelte/easing';
-      import SelectProperty from '../components/SelectProperty.svelte';
-      import About from './About.svelte';
+   import { db } from '../assets/db'
+   import house from '../assets/images/house.png';
+   import Search from '../components/Search.svelte';
+   import CardProperty from '../components/CardProperty.svelte';
+   import { property, systStatus, proInterest } from '../stores/stores'
+   import { searchProperty } from '../assets/funcions/search'
+   import { scale } from 'svelte/transition';
+   import { expoInOut } from 'svelte/easing';
+   import SelectProperty from '../components/SelectProperty.svelte';
+   import { dbProperties } from '../firebase';
+   import selectedProperty from '../components/SelectProperty.svelte'
+   import About from './About.svelte';
+   // import { properties } from './../assets/parameters.js';
+   // import { searchProperty } from './../assets/funcions/search.js';
+   // import checkLoggedIn from "./router";
+   // import {navigate} from "svelte-routing";
 
    // Decalaraciónes
       let searchTerm;
@@ -21,7 +23,7 @@
       let item;
       let seeProp = true;
 
-      $proInterest = db.properties;
+      $proInterest = dbProperties;
    // Funciones
          function altaProp() {
          }
@@ -41,7 +43,10 @@
 
 </script>
 
-<h1>Estas en Propiedades</h1>
+         <div>
+            <h1>Estas en Propiedades</h1>
+            <img src={house} alt="propiedad" class="imgTitle">
+         </div>
 
          {#if seeProp}  
             <button on:click={altaProp}>Alta de Propiedad</button>
@@ -79,5 +84,10 @@
       margin: 5px;
       background-color: #e4ddcf;
    }
+
+   .imgTitle{
+      max-width: 148px;
+   }
+
 
  </style>

@@ -86,9 +86,9 @@
         <Agenda />
       </Route>
 
-      <Route path="/propiedades">
+      <!-- <Route path="/propiedades">
         <Propiedades />
-      </Route>
+      </Route> -->
 
       <Route path="/sinergias">
         <Sinergias />

@@ -10,8 +10,10 @@
     import Sinergias from "./Sinergias.svelte";
     import AltaContacto from './AltaContacto.svelte'
     import AltaPropiedad from './AltaPropiedad.svelte';
-    // import SelectProperty from '../components/SelectProperty.svelte';
+    import login from './Login.svelte'
     import logoMH from '../assets/images/logoMH.png'
+  import Login from "./Login.svelte";
+    // import SelectProperty from '../components/SelectProperty.svelte';
    
    
 </script>
@@ -32,8 +34,10 @@
                   <Link to="propiedades">Propiedades</Link>
                   <Link to="captacion">Captación</Link>            
                   <Link to="agenda">Agenda</Link>
-                  <Link to ="sinergias">Sinergias</Link>
+                  <Link to="sinergias">Sinergias</Link>
                   <Link to="about">About</Link>
+                  <Link to="login">Login</Link>
+
                   <!-- <Link to="selectContact">SelectedContact</Link>       -->
               </nav>
             </header>
@@ -61,22 +65,25 @@
             <Agenda />
           </Route>
 
-          <Route path="sinergias">
+          <Route path = "sinergias">
             <Sinergias />
           </Route>
           
-          <Route path="about">
+          <Route path = "about">
             <About />
           </Route>
 
-          <Route path="altaContacto">
+          <Route path = "altaContacto">
             <AltaContacto />
           </Route>
-
+          
+          <Route path = "login">
+            <Login />
+          </Route>
+          
           <Route path="altaPropiedad">
             <AltaPropiedad />
           </Route>
-
           <!-- <Route path="selectedContact">
             <SelectProperty />
           </Route> -->
