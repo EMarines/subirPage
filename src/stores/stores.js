@@ -10,6 +10,8 @@ export const conInterest = writable([])
 
 export const searchTermG = writable("start");
 
+// export const id = writable();
+
 export const contact = writable({
    typeContact: "",  // Tipo de contacto
    name: "",

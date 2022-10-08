@@ -1,161 +1,192 @@
 <script>
-   import schedule from '../assets/images/schedule.png';
-   import { fly, fade } from 'svelte/transition';
-   import { db } from '../assets/db';
-   import { dbBinnacle } from '../firebase'
+// @ts-nocheck
+
+   // Importaciones
+      import { collection, addDoc, deleteDoc, getDoc, getDocs, doc, updateDoc, setDoc, getFirestore } from 'firebase/firestore'
+      import schedule from '../assets/images/schedule.png';
+      import { fly, fade } from 'svelte/transition';
+      import { todo } from '../stores/stores'
+      import { db } from '../firebase'
+      import AddToSchedule from '../components/AddToSchedule.svelte';
+      // import { id } from '../stores/stores'
+     
+   // Declaraciones
+      let error = "";
+      let dbTodos = [];
+      let showShedule = false;
+      let editStatus = false;
+      let id = "";
+
+      const tareas = collection(db, "todos")
+
+   // Funciones 
+
+      // Manejo de Agregar o Editar
+         async function handTodos() {
+            if(!editStatus){
+               const todoToAdd = collection(db, "todos")
+               await addDoc(todoToAdd, $todo);
+            } else {
+               await updateDoc(doc(db, "todos", $todo.id), $todo)
+               editStatus = false;
+            }
+            $todo = []; 
+            location.href= "/contactos"
+         };
    
-   let error = "";
-   let ordeTodos = [];
+      // Agrega Todo
+         // async function addTodo(){
+         //    console.log($todo)
+         //    const todoToAdd = collection(db, "todos")
+         //    await addDoc(todoToAdd, $todo);
+         //    // $todo=[];
+         // };
 
-// Descarga la Base de todos
-   //  db.collection("todos").onSnapshot((querySnapshot) => {
-   //          let docs = [];
-   //          querySnapshot.forEach(async(doc) => {
-   //             docs.push({ ...doc.data(), id: doc.id });
-   //          });
-   //          todos = [...docs];                         
-   //          ordeTodos = todos.sort((b, a)  => {return new Date(b.endTask) - new Date(a.endTask)}) 
-   //       });
+      // Elimina la tarea
+         async function deleteTodo(id) {
+            let confDelete = confirm("Quieres borrarlo definitivmente?")
+            if(confDelete == true){
+               console.log(id)
+               await deleteDoc(doc(db, "todos", id))           
+            };
+            // taskForm.reset();   // Borra el form por su id
+         };
 
-// Agrega tarea nueva
-   // const addTodo = async() => {
-   //    if (todo.task !== ""){
-   //       await db.collection("todos").doc().set({ ...todo, createdAt: Date.now() });
-   //       error = "";
-   //    } else {
-   //       error = "Task is empty"
-   //    };
-   //       todo = {};
-   //    };
+      // Edita la tarea
+         async function editTodo(item) {
+            $todo = item
+            console.log($todo)
+            editStatus = true;
+            // $todo = (await getDoc(doc(db, "todos", id))).data()
+            // taskForm['btn-task-save'].innerText = "Update"
+         };
 
-// Edita la tarea 
+      // Marcar completada la tarea
+         function markTodoAsComplete() {
 
-   // async function markTodoAsComplete() {     
+         };
 
-   const markTodoAsComplete = async (item) => {
-      item.isComplete = !item.isComplete
-      // await db.collection("todos").doc(item.id).update(item);
-      //   window.location.href='/'
-   };
+      // Descarga Todos al iniciar con su respectivo ID
+         (() => {
+            getDocs(tareas)
+            .then((response) => {
+               return dbTodos = response.docs.map((item) => {
+                  return {... item.data(), id: item.id};
+               })
+            })
+         })();
+  
+      // Close
+         function close() {
+            // taskForm.reset(); 
+         };
 
-	function addTodo(){
-
-	}
-
-
-
-// Elimina la tarea
-   // const deleteTodo = async (item) => {
-   //    let confDelete = confirm("Quieres borrarlo definitivmente?")
-   //    if(confDelete == true){
-   //       await db.collection("todos").doc(item.id).delete();
-   //    }
-   // };
-
-// Agrega la tarea con el "Enter"
-   // const keyIsPressed = (event) => {
-   //    if (event.key ==="Enter"){
-   //       addTodo()
-   //    };
-   // };
- 
+         
 </script>
 
-<h1>Agenda</h1>
-<img src={schedule} alt="schedule" class="imgTitle">
-
 <!-- <button on:click={getData}>click</button> -->
+   <h1>Agenda</h1>
+   <img src={schedule} alt="schedule" class="imgTitle">
 
-<div class="container">
+   <!-- <form id="taskForm"> -->
+      <div class="container">      
+         <div class="background" transition:fade on:click ={close}/>
+            <div class="pop-up" transition:fly>         
+               <div>
+                  <input type="text" class="inputTask" cols="56" rows="1"  placeholder = "Agrega una Tarea o Cita" bind:value = {$todo.task} />
+               </div>
+               <div class="contDate">
+                  <input type="time"class="inputDate" bind:value = {$todo.timeTask} />
+                  <input type="date" class="inputDate" bind:value = {$todo.endTask} /> 
+               </div>
+               <div>
+                  <textarea name="notes" id="" cols="56" rows="5" bind:value = {$todo.notes} placeholder ="descripción"></textarea>
+               </div>            
+               <div>
+                  <button id="btn-task-save" on:click={handTodos}>Guardar</button>
+                  <button on:click={close}>Cancelar</button>
+               </div>
+            </div>   
+      </div>
+   <!-- </form> -->
 
-   
-   <!-- <div class="background" transition:fade on:click ={close}/> -->
-
-      <div class="pop-up" transition:fly>         
-         <div>
-            <!-- <input type="text" class="inputTask" cols="56" rows="1"  placeholder = "Agrega una Tarea o Cita" bind:value = {todo.task} /> -->
-         </div>
-         <div class="contDate">
-            <!-- <input type="time"class="inputDate" bind:value = {todo.timeTask} />
-            <input type="date" class="inputDate" bind:value = {todo.endTask} />  -->
-         </div>
-         <div>
-            <!-- <textarea name="notes" id="" cols="56" rows="5" bind:value = {todo.notes} placeholder ="descripción"></textarea> -->
-         </div>
-         
-         <div>
-            <!-- <button on:click={addTodo}>Guardar</button>
-            <button on:click={close}>Cancelar</button> -->
-         </div>
-      </div>   
-
-
-<!-- <Schedule /> -->
-<h3>Tareas</h3>
-      {#each dbBinnacle as item}
-         <h1>bitácora:gg {item.date} {item.comment}</h1>
-      {/each}
-<ol>
-   {#each db.todos as item}
+<!-- Agrega listado de tareas -->
+   <h3>Tareas</h3>
+   <ol>
+      {#each dbTodos as item}
       {#if !item.timeTask}
-         <li class="schedule" class:complete={item.isComplete}>
-            <span>
-               <!-- <button on:click={ () => markTodoAsComplete(item) }>✔</button>
-               <button on:click={ () => deleteTodo(item) }>✖</button> -->
-            </span>
-            <spam>
-               {item.endTask} -*-
-               {item.task} -*-
-               {#if item.notes}
-                  {item.notes} 
-               {/if}          
-            </spam>        
-         </li>
-      {/if}
-   {:else}
-      <p>No Hay Tareas Pendientes</p>
-   {/each}
-      <p class="error">{error}</p>
-</ol>
-<h3>Agenda</h3>
-<ol>
-   {#each db.todos as item}
+      <div>
+            <li class="schedule" class:complete={item.isComplete}>
+               <span>
+                  <button on:click={ () => markTodoAsComplete(item.id) }>✔</button>
+                  <button on:click={ () => deleteTodo(item.id) }>✖</button>
+                  <button on:click={ () => editTodo(item)}>✔✖</button>                  
+               </span>
+               <spam>
+                  {item.endTask} -*-
+                  {item.task} -*-
+                  {#if item.notes}
+                     {item.notes} 
+                  {/if}          
+               </spam>        
+            </li>
+         </div>
+         {/if}
+      {:else}
+         <p>No Hay Tareas Pendientes</p>
+      {/each}
+         <p class="error">{error}</p>
+   </ol>
+<!-- Agrega citas -->
+   <h3>Agenda</h3>
+   <ol>
+      {#each dbTodos as item}
+      
       {#if item.timeTask}
-         <li class="schedule" class:complete={item.isComplete}>
-            <span>
-               <!-- <button on:click={ () => markTodoAsComplete(item) }>✔</button>
-               <button on:click={ () => deleteTodo(item) }>✖</button> -->
-            </span>
-            <spam>
-               {item.timeTask} -*-
-               {item.endTask} -*-
-               {item.task} -*-
-               {#if item.notes}
-                  {item.notes} 
-               {/if}            
-            </spam>        
-         </li>
-      {/if}
-   {:else}
-      <p>No Hay Tareas Pendientes</p>
-   {/each}
-      <p class="error">{error}</p>
-</ol>
-</div>
+      <div  on:dblclick={() => editTodo}>
+            <li class="schedule" class:complete={item.isComplete}>
+               <span>
+                  <button on:click={ () => markTodoAsComplete(item.id) }>✔</button>
+                  <button on:click={ () => deleteTodo(item.id) }>✖</button>
+                  <button on:click={ () => editTodo(item) } >✔✖</button>
+               </span>
+               <spam>
+                  {item.timeTask} -*-
+                  {item.endTask} -*-
+                  {item.task} -*-
+                  {#if item.notes}
+                     {item.notes} 
+                  {/if}            
+               </spam>        
+            </li>
+      </div>
+         {/if}
+      {:else}
+         <p>No Hay Tareas Pendientes</p>
+      {/each}
+         <p class="error">{error}</p>
+   </ol>
+
+<!-- Muestra el fomato de schedule -->
+   {#if showShedule}
+      <div>
+         <AddToSchedule {$todo} />
+      </div>
+   {/if}
 
 <style>
-   .schedule {
-        /* width: 550px; */
-        color: #651fff;
-        font-size: 1.4rem;
-        text-align: left;
-    }
+      .schedule {
+         /* width: 550px; */
+         color: #651fff;
+         font-size: 1.4rem;
+         text-align: left;
+      }
 
-    .imgTitle{
-      max-width: 148px;
-   }
+      .imgTitle{
+         max-width: 148px;
+      }
 
 
-	
+      
 
 </style>

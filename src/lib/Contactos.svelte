@@ -1,51 +1,75 @@
 <script>
-	// import { contact, proInterest, conInterest } from './../stores/stores.js';
+	// import { database } from './../firebase.js';
+	// Importaciones
+      // import { collection, setDoc, Timestamp, addDoc, getDoc, getDocs } from 'firebase/firestore'
       import Search from '../components/Search.svelte';
       import { db } from '../assets/db';
       import ContactCard from '../components/ContactCard.svelte';
       import user from '../assets/images/add-user.png';
       import { contact, systStatus, proInterest, conInterest} from '../stores/stores';
       import SelectedContact from '../components/SelectedContact.svelte';
-      import { dbContacts } from '../firebase'
-
-      // import { collection, addDoc, getDoc, getDocs } from 'firebase/firestore'
-      // import CardProperty from '../components/CardProperty.svelte';
-      //   import AltaContacto from './AltaContacto.svelte';
-      //   import About from './About.svelte';
+      import { dbContacts, database } from '../firebase.js'
+      import AltaContacto from './AltaContacto.svelte'
       
    // Declaraciónes
       let searchTerm;
-      // let dbContacts = [];
-      // let filteredContacts = [];
-      // let commInpuyBinnacle;
-      // let commBinnacle;
-      // let checkedProperty;
-      // let binnacle;
-      // let showList = false;
-      // let item;
+      $systStatus = "start";
+      $conInterest = dbContacts;
+      let editStatus = false;
 
-      // $conInterest = db.contacts
-      $systStatus = "start"
-      $conInterest = dbContacts
+      // async function addContact(contacto) {
+      //    $systStatus = "contAdd"  
+      //    const response = await database.collection("contacts").add(contacto);
+      // }
 
+      let contacto = {
+         name: "Pito",
+         lastname: "Perez"
+      }
 
-      
-//    const contactos = collection(database, "contacts")
-
-// (function() {
-//   getDocs(contactos)
-//   .then((response) => {
-//      return dbContacts = response.docs.map((item) => {
-//         return {... item.data()};
-//      })
-//   })
-// })();
 
    // Funciones 
       // Agregar contacto
-         function addContact(){
-            // window.location.href="/altaContacto"
-         };
+         // Manejo de edicion o alta
+            const handleSubmit = () => {
+               $systStatus = "contEditing"
+               //    if  (!editStatus) {
+               // addContact();
+               // // console.log("Contacto guardado")
+               // } else {
+               // updateContact();                
+               // }
+            };
+
+         // Añadir contacto
+            // const addContact = async () => {  
+            //    $systStatus = "contAdd"  
+            //    try {
+            //       // commBinnacle = (`Se le agregó al contacto: ${contact.name} ${contact.lastname} del ${contact.telephon}`)
+            //       // noteBinnacle = {"date": Date.now(), "comment": commBinnacle}  ****agregar noteBinnacle a saveBinnacle          
+            //       // await database.collection("contacts").doc().set({ ...contact, createdAt: Date.now() });
+            //          database.collection("contacts").add({contacto})
+            //          // const contactAdd = collection(database, "contact")
+            //          // saveBinnacle(noteBinnacle, contact);
+            //          $systStatus = "contSelect"                                
+            //    } catch (error) {
+            //       console.log(error)
+            //    }        
+            // };
+
+         // Edita Contacto
+               const updateContact = async () => {
+               //    if (editingItem === "sendProperty") {
+               //       contact.sendedProperties.push(claEB)
+               //    } else {
+               //       commBinnacle = (`Se le editó a: ${contact.name} ${contact.lastname} del ${contact.telephon}`)
+               //       binnacle = {"date": Date.now(), "comment": commBinnacle}                
+               //       saveBinnacle(binnacle);
+               //    }
+               //       await db.collection("contacts").doc(currentId).update(contact);                
+               //       editingItem = "";
+               //       systStatus = "contSelect"; 
+               };
 
       // Contacto Seleccionado
          const selectContact = (item) => {
@@ -62,7 +86,6 @@
             });
          };
 
-
 </script>
 
    <!-- Inicio de Contactos -->
@@ -74,7 +97,7 @@
 
          {#if  $systStatus === "start"}
             <h2>Contactos a Mostrar</h2>
-            <button on:click={addContact}>alta de contacto</button>
+            <button on:click={handleSubmit}>alta de contacto</button>
 
             <Search bind:searchTerm on:input={searCont} />  
                         
@@ -101,10 +124,14 @@
                </div>
             {/if} -->
          {/if}
-         <!-- 
-               {#if $systStatus === "contEditing"}
-                     <AltaContacto {...contact} />
-               {/if} -->
+
+         {#if $systStatus === "contAdd"}
+               <AltaContacto {...contact} />
+         {/if}
+         
+         {#if $systStatus === "contEditing"}
+               <AltaContacto {...contact} />
+         {/if}
 
       </main>
 

@@ -1,8 +1,12 @@
-<script>   
+<script>
+// @ts-nocheck
+   
    // Importaciones
       import { createEventDispatcher } from 'svelte';
       import { fly, fade } from 'svelte/transition';
       import { contact, todo, systStatus } from '../stores/stores';
+
+      console.log($todo)
       
    // Declaraciones
       let nombre = (`${$contact.name} ${$contact.lastname}`)
@@ -43,7 +47,7 @@
 
       <div class="pop-up" transition:fly>         
          <div>
-            <input type="text" class="inputTask"  placeholder = "Agrega una Tarea o Cita" bind:value = {task} />
+            <input type="text" class="inputTask"  placeholder = "Agrega una Tarea o Cita" bind:value = {$todo.task} />
          </div>
          <div class="contDate">
             <input type="time"class="inputDate" bind:value = {$todo.timeTask} />

@@ -1,9 +1,9 @@
 <script>
-   import { formatDate, formatHour, formatDay } from '../assets/funcions/sevralFunctions'
-   import { db } from '../assets/db'
+   import { formatDate, formatHour, formatDay } from '../assets/funcions/sevralFunctions';
+   import { db } from '../assets/db';
 
-  const orderTodos = db.todos
-
+  const orderTodos = db.todos;
+ 
 </script>
 
 <!-- AGENDA -->

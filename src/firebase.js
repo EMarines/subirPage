@@ -34,14 +34,14 @@
   // export const db = firebase.firestore();
   
   
-  const db = initializeApp(firebaseConfig);
-  const database = getFirestore(db);
-  const storage = getStorage(db)
+  export const database = initializeApp(firebaseConfig);
+  export  const db = getFirestore(database);
+  // export const storage = getStorage(database)
   
-  const bitacora = collection(database, "binnacles")
-  const contactos = collection(database, "contacts")
-  const propiedades = collection(database, "properties")
-  const tareas = collection(database, "todos")
+  const bitacora = collection(db, "binnacles")
+  const contactos = collection(db, "contacts")
+  const propiedades = collection(db, "properties")
+  const tareas = collection(db, "todos")
 
   
   function getBinnacles() {
@@ -80,22 +80,20 @@
      })
   })
 })();
+
 (() => {
   getDocs(tareas)
   .then((response) => {
      return dbTodos = response.docs.map((item) => {
-        return {... item.data()};
+        return {... item.data(), id: item.id};
      })
-  })
+   })
+   console.log(dbTodos)
 })();
 
 // export dbBinnacle
 
 
-
-  // console.log(database)
-
-  
 
 
   
