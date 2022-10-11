@@ -10,6 +10,8 @@ export const conInterest = writable([])
 
 export const searchTermG = writable("start");
 
+export const dbTodos = writable([])
+
 // export const id = writable();
 
 export const contact = writable({
@@ -80,4 +82,10 @@ export const contact = writable({
       email: "",
       typeUser: "",
       password: ""
-   })
+   });
+
+// Binnacle
+   export const binnacle = {
+      date: "",
+      commBinnacle: ""
+   };

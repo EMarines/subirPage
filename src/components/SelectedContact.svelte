@@ -1,17 +1,18 @@
 <script>
   // @ts-nocheck
-	import Propiedades from './../lib/Propiedades.svelte';
+
   // Importaciones
-    import { db } from '../assets/db';
+    import { db, dbContacts, dbProperties } from '../firebase';
     import Search from './Search.svelte';
     import AddToSchedule from './AddToSchedule.svelte';
     import CardProperty from './CardProperty.svelte';
     import { contact, systStatus, proInterest, property } from '../stores/stores.js';
     import { filtContPropInte } from '../assets/funcions/filProperties'
     import { formatDate } from '../assets/funcions/sevralFunctions';
-    import { searchProperty } from '../assets/funcions/search'
     import { scale } from 'svelte/transition';
     import { expoInOut } from 'svelte/easing';
+    import AltaContacto from '../lib/AltaContacto.svelte';
+    import { searchProperty } from '../assets/funcions/search'
 
   // Declaraciones
     let mostImageProp = false;
@@ -24,17 +25,21 @@
     let filteredProperties = [];
     let commInpuyBinnacle;
     let mostButtons = false;
-    let proInt = [];
     let contCheck = [];
     let showProp = false;
     let mosrBusq = false;
+    let proInt = [];
     let listToRender = [];
+    let showAltCont = false;
+
+    // $systStatus = "contSelect"
+    console.log($systStatus)
 
   // Funciones
     // Muestra la imagen de propiedad cuendo el punero está sobre la clave
       function mouseOverProp(itemP) {
         mostImageProp = true;
-        imgToShow = (db.properties).filter((e) => e.claveEB === (itemP))
+        imgToShow = dbProperties.filter((e) => e.claveEB === (itemP))
         // console.log("estas", imgToShow )
       };
     
@@ -63,7 +68,7 @@
     // Input filter ""searchContact""
         const searProp = () => {
           showProp = true;
-              return $proInterest = db.properties.filter((propety) => {
+              return $proInterest = dbProperties.filter((propety) => {
               let contInfo = (propety.nameProperty + " " + propety.colonia + " " + propety.claveEB).toLowerCase();
               return contInfo.includes(searchTerm.toLowerCase());
           });  
@@ -94,9 +99,12 @@
         }
 
     // Edit Contact
-        function editContact($contact) {
+        function editContact() {
+          // console.log($contact)
           $systStatus = "contEditing"
-          console.log($contact)
+          // showAltCont = true;
+          // console.log($systStatus)
+          // location.href="/altaContacto"
         }
 
     // Delete Contact
@@ -124,22 +132,26 @@
           console.log(contCheck)
         };
 
+    console.log($systStatus)
+ 
 </script>
 
     <!-- Datos personales del contacto -->
-        <div class="container">
+      <main>
+        {#if $systStatus === "contSelect"}
+          <div class="container">
 
-          <div>
-            <h4>Contacto</h4>                  
-            <h2>{$contact.name} {$contact.lastname}</h2>
-            <p>Fecha Alta: {formatDate($contact.createdAt)}</p> 
-            <p>Busca  {$contact.selecTP}, de {$contact.numBeds} recámaras,  {$contact.numBaths} baños y {$contact.numParks} estacionamientos </p>
-            <p>Presupuesto tope: <strong>{$contact.budget}</strong> : Tipo de propiedad buscada: <strong>{$contact.selecTP}</strong></p>
-            <p>Teléfono: <strong>{$contact.telephon}</strong> ---- Email: <strong>{$contact.email}</strong> </p>   
-            <p>Preferencias: {($contact.tagsProperty).join(',  ')}</p>
-            <p> Ubicaciones: {($contact.locaProperty).join(',  ')}</p>
+            <div>
+              <h4>Contacto</h4>                  
+              <h2>{$contact.name} {$contact.lastname}</h2>
+              <p>Fecha Alta: {formatDate($contact.createdAt)}</p> 
+              <p>Busca  {$contact.selecTP}, de {$contact.numBeds} recámaras,  {$contact.numBaths} baños y {$contact.numParks} estacionamientos </p>
+              <p>Presupuesto tope: <strong>{$contact.budget}</strong> : Tipo de propiedad buscada: <strong>{$contact.selecTP}</strong></p>
+              <p>Teléfono: <strong>{$contact.telephon}</strong> ---- Email: <strong>{$contact.email}</strong> </p>   
+              <p>Preferencias: {($contact.tagsProperty).join(',  ')}</p>
+              <p> Ubicaciones: {($contact.locaProperty).join(',  ')}</p>
 
-            <div class="propMost" >
+              <div class="propMost" >
     <!-- Muestra las propiedes enviadas -->
               <p> Propiedades enviadas:</p>
                 <div class="mostImage">
@@ -190,16 +202,17 @@
                 </div>
 
     <!-- Iconos Editar y Borrar -->
+              </div>
+                <div class="iconContent">
+                  <i on:click = {editContact} class="material-icons edit">edit</i>
+                  <i on:click={deleteContact} class="material-icons delete">delete_forever</i>                               
+                </div> 
             </div>
-              <div class="iconContent">
-                <i on:click={editContact} class="material-icons edit">edit</i>
-                <i on:click={deleteContact} class="material-icons delete">delete_forever</i>                               
-              </div> 
-          </div>
-        </div> 
+          </div> 
 
     <!-- Propiedades de interés -->
               {#if showProp} 
+
                 <main id="bookshelf">
                   <h3>Propiedades encontradas: {$proInterest.length}</h3>
                                    
@@ -214,7 +227,12 @@
                   {/if}
                 </main>
               {/if}
+        {/if}
 
+    <!-- Muestra el form de Alta de Contacto -->
+        
+        
+        </main>
 <style>
 
   h3{

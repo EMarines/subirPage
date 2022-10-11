@@ -1,4 +1,5 @@
 <script>
+	import FindToErase from './../components/FindToErase.svelte';
   import { db } from '../assets/db.js'
   import { Router, Route, Link } from "svelte-navigator";
   import Contactos from './Contactos.svelte';
@@ -11,11 +12,7 @@
   import home from '../assets/images/house.png';
   import schedule from '../assets/images/schedule.png';
   import team from '../assets/images/team.png';
-
-
-  
-  // import { formatDate } from '../assets/funcions/sevralFunctions'
-  
+  import { dbContacts, dbProperties, dbTodos } from '../firebase'
 
   let fecha;
   let todos= [];
@@ -39,6 +36,7 @@
         <Link to= "/contactos" title = "contactos">
           <div class="container" >
             <div class="optionCard">
+              <p>{dbContacts.length} Contactos</p>
               <img src={user} alt='Buzon' class="profile-img">
               <h1 class="name">Contactos</h1>
             </div>
@@ -48,6 +46,7 @@
         <Link to= "/propiedades" title = "propiedades">
           <div class="container" >
             <div class="optionCard">
+              <p>{dbProperties.length} Propiedades</p>
               <img src={home} alt='propiedad' class="profile-img">
               <h1 class="name">Propiedades</h1>
             </div>
@@ -57,6 +56,7 @@
         <Link to= "/agenda" title = "agenda">
           <div class="container" >
             <div class="optionCard">
+              <p><strong>{dbTodos.length} Pendientes</strong></p>
               <img src={schedule} alt='agenda' class="profile-img">
               <h1 class="name">Agenda</h1>
             </div>
@@ -66,12 +66,13 @@
         <Link to= "/sinergias" title = "sinergias">
           <div class="container" >
             <div class="optionCard">
+              <p> Sinergias</p>
               <img src= {team} alt='sinergias' class="profile-img">
               <h1 class="name">Sinergias</h1>
             </div>
           </div>  
         </Link>
-      
+      <!-- <FindToErase /> -->
       </Router>
 
       <Route path="/contactos">
@@ -122,7 +123,7 @@
   width: 100%;
   height: auto;
   background-color: aquamarine;
-
+  padding-top: 5px;
 }
 
 /* .banner-img {

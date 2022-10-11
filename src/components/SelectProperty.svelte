@@ -1,10 +1,11 @@
 <script>
    
    // Importaciones
-      import ContactCard from './CardProperty.svelte';
-      import { db } from '../assets/db';
-      import { conInterest, property } from '../stores/stores'
-      import { filtPropContInte } from '../assets/funcions/filContacts'
+   import ContactCard from './CardProperty.svelte';
+   import { db } from '../assets/db';
+   import { conInterest, property } from '../stores/stores'
+   import { filtPropContInte } from '../assets/funcions/filContacts'
+	import { systStatus } from '../stores/stores';
       // import { filtPropContInte } from '../assets/funcions/rangValue'
 
    // Declaraciones
@@ -20,8 +21,8 @@
          }
 
       // Edit
-         function editProperty(property) {
-
+         function editProperty() {
+            // $systStatus = "propEditing"
          }
 
       // Delete
@@ -76,11 +77,12 @@
                <button class="btnCommon btnCancel" on:click={onCancel}>Regresar</button>
             </div>
             <!-- Material icons -->
-            <div class="iconContent">
-               <i on:click={editProperty}
-                  class="material-icons edit">edit</i>
-               <!-- <i on:click={viewProperty} class="material-icons irLink"> pageview </i> -->
-               <i on:click={deleteProperty} class="material-icons delete" >delete_forever</i>
+            <div>
+               <div class="iconContent">
+                  <i on:click = {editProperty} class="material-icons edit">edit</i>
+                  <!-- <i on:click={viewProperty} class="material-icons irLink"> pageview </i> -->
+                  <i on:click = {deleteProperty} class="material-icons delete" >delete_forever</i>
+               </div>
             </div>
          </div>
 

@@ -6,20 +6,30 @@
       import schedule from '../assets/images/schedule.png';
       import { fly, fade } from 'svelte/transition';
       import { todo } from '../stores/stores'
-      import { db } from '../firebase'
+      import { db, dbTodos } from '../firebase'
+      import { formatDate } from '../assets/funcions/sevralFunctions'
       import AddToSchedule from '../components/AddToSchedule.svelte';
       // import { id } from '../stores/stores'
      
    // Declaraciones
       let error = "";
-      let dbTodos = [];
       let showShedule = false;
-      let editStatus = false;
-      let id = "";
-
-      const tareas = collection(db, "todos")
-
+      let editStatus = false;   
+      let toRender = [];
+   
    // Funciones 
+      // Ordena dbTodos por fecha
+         (() => {
+            return toRender = dbTodos.sort((a, b) => {
+               if(a.endTask < b.endTask){
+                  return 1;
+               }
+               if(a.endTask > b.endTask){
+                  return -1;
+               }
+               return 0
+            });
+         })();
 
       // Manejo de Agregar o Editar
          async function handTodos() {
@@ -57,6 +67,7 @@
             $todo = item
             console.log($todo)
             editStatus = true;
+            showShedule = true;
             // $todo = (await getDoc(doc(db, "todos", id))).data()
             // taskForm['btn-task-save'].innerText = "Update"
          };
@@ -66,114 +77,108 @@
 
          };
 
-      // Descarga Todos al iniciar con su respectivo ID
-         (() => {
-            getDocs(tareas)
-            .then((response) => {
-               return dbTodos = response.docs.map((item) => {
-                  return {... item.data(), id: item.id};
-               })
-            })
-         })();
-  
+
       // Close
          function close() {
-            // taskForm.reset(); 
+            $todo=[]; 
+            location.href = "/contactos"
          };
 
          
 </script>
 
 <!-- <button on:click={getData}>click</button> -->
-   <h1>Agenda</h1>
-   <img src={schedule} alt="schedule" class="imgTitle">
+   <div class="container">
+      <h1>Agenda</h1>
+      <img src={schedule} alt="schedule" class="imgTitle">
 
-   <!-- <form id="taskForm"> -->
-      <div class="container">      
-         <div class="background" transition:fade on:click ={close}/>
-            <div class="pop-up" transition:fly>         
-               <div>
-                  <input type="text" class="inputTask" cols="56" rows="1"  placeholder = "Agrega una Tarea o Cita" bind:value = {$todo.task} />
-               </div>
-               <div class="contDate">
-                  <input type="time"class="inputDate" bind:value = {$todo.timeTask} />
-                  <input type="date" class="inputDate" bind:value = {$todo.endTask} /> 
-               </div>
-               <div>
-                  <textarea name="notes" id="" cols="56" rows="5" bind:value = {$todo.notes} placeholder ="descripción"></textarea>
-               </div>            
-               <div>
-                  <button id="btn-task-save" on:click={handTodos}>Guardar</button>
-                  <button on:click={close}>Cancelar</button>
-               </div>
-            </div>   
-      </div>
-   <!-- </form> -->
+      <!-- <form id="taskForm"> -->
+         <div class="container">      
+            <div class="background" transition:fade on:click ={close}/>
+               <div class="pop-up" transition:fly>         
+                  <div>
+                     <input type="text" class="inputTask" cols="56" rows="1"  placeholder = "Agrega una Tarea o Cita" bind:value = {$todo.task} />
+                  </div>
+                  <div class="contDate">
+                     <input type="time"class="inputDate" bind:value = {$todo.timeTask} />
+                     <input type="date" class="inputDate" bind:value = {$todo.endTask} /> 
+                  </div>
+                  <div>
+                     <textarea name="notes" id="" cols="56" rows="5" bind:value = {$todo.notes} placeholder ="descripción"></textarea>
+                  </div>            
+                  <div>
+                     <!-- <button id="btn-task-save" on:click={handTodos}>Guardar</button> -->
+                     <button on:click={handTodos} >{#if !editStatus}Guardar{:else} Editar{/if}</button>
+                     <button on:click={close}>Cancelar</button>
+                  </div>
+               </div>   
+         </div>
+      <!-- </form> -->
 
 <!-- Agrega listado de tareas -->
-   <h3>Tareas</h3>
-   <ol>
-      {#each dbTodos as item}
-      {#if !item.timeTask}
-      <div>
-            <li class="schedule" class:complete={item.isComplete}>
-               <span>
-                  <button on:click={ () => markTodoAsComplete(item.id) }>✔</button>
-                  <button on:click={ () => deleteTodo(item.id) }>✖</button>
-                  <button on:click={ () => editTodo(item)}>✔✖</button>                  
-               </span>
-               <spam>
-                  {item.endTask} -*-
-                  {item.task} -*-
-                  {#if item.notes}
-                     {item.notes} 
-                  {/if}          
-               </spam>        
-            </li>
+      <h3>Tareas</h3>
+      <ol>
+         {#each toRender as item}
+         {#if !item.timeTask}
+         <div>
+               <li class="schedule" class:complete={item.isComplete}>
+                  <span>
+                     <button on:click={ () => markTodoAsComplete(item.id) }>✔</button>
+                     <button on:click={ () => deleteTodo(item.id) }>✖</button>
+                     <button on:click={ () => editTodo(item)}>✔✖</button>                  
+                  </span>
+                  <spam>
+                     {formatDate(item.endTask)} -*-
+                     {item.task} -*-
+                     {#if item.notes}
+                        {item.notes} 
+                     {/if}          
+                  </spam>        
+               </li>
+            </div>
+            {/if}
+         {:else}
+            <p>No Hay Tareas Pendientes</p>
+         {/each}
+            <p class="error">{error}</p>
+      </ol>
+   <!-- Agrega citas -->
+      <h3>Agenda</h3>
+      <ol>
+         {#each toRender as item}
+         
+         {#if item.timeTask}
+         <div  on:dblclick={() => editTodo}>
+               <li class="schedule" class:complete={item.isComplete}>
+                  <span>
+                     <button on:click={ () => markTodoAsComplete(item.id) }>✔</button>
+                     <button on:click={ () => deleteTodo(item.id) }>✖</button>
+                     <button on:click={ () => editTodo(item) } >✔✖</button>
+                  </span>
+                  <spam>
+                     {item.timeTask} -*-
+                     {formatDate(item.endTask)} -*-
+                     {item.task} -*-
+                     {#if item.notes}
+                        {item.notes} 
+                     {/if}            
+                  </spam>        
+               </li>
          </div>
-         {/if}
-      {:else}
-         <p>No Hay Tareas Pendientes</p>
-      {/each}
-         <p class="error">{error}</p>
-   </ol>
-<!-- Agrega citas -->
-   <h3>Agenda</h3>
-   <ol>
-      {#each dbTodos as item}
-      
-      {#if item.timeTask}
-      <div  on:dblclick={() => editTodo}>
-            <li class="schedule" class:complete={item.isComplete}>
-               <span>
-                  <button on:click={ () => markTodoAsComplete(item.id) }>✔</button>
-                  <button on:click={ () => deleteTodo(item.id) }>✖</button>
-                  <button on:click={ () => editTodo(item) } >✔✖</button>
-               </span>
-               <spam>
-                  {item.timeTask} -*-
-                  {item.endTask} -*-
-                  {item.task} -*-
-                  {#if item.notes}
-                     {item.notes} 
-                  {/if}            
-               </spam>        
-            </li>
-      </div>
-         {/if}
-      {:else}
-         <p>No Hay Tareas Pendientes</p>
-      {/each}
-         <p class="error">{error}</p>
-   </ol>
+            {/if}
+         {:else}
+            <p>No Hay Tareas Pendientes</p>
+         {/each}
+            <p class="error">{error}</p>
+      </ol>
 
 <!-- Muestra el fomato de schedule -->
-   {#if showShedule}
-      <div>
-         <AddToSchedule {$todo} />
-      </div>
-   {/if}
-
+         <!-- {#if showShedule}
+            <div>
+               <AddToSchedule {$todo} />
+            </div>
+         {/if} -->
+   </div>
 <style>
       .schedule {
          /* width: 550px; */

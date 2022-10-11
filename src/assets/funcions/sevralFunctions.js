@@ -8,7 +8,7 @@ let fecha;
 
 // Convertir fecha en timestamp a formato legible SIN hora
       export function formatDate(fecha){
-          fecha = new Date(+fecha)
+          fecha = new Date(fecha)
           let dia = fecha.getDate();
           if(dia < 10){
             dia = '0' + dia
@@ -16,12 +16,12 @@ let fecha;
           let mes = mesAnyo[fecha.getMonth()];
           let ano = fecha.getFullYear();
 
-          return (`${dia}-${mes}-${ano}`)
+          return (`${dia}/${mes}/${ano}`)
        }
 
 // Convertir HORA en timestamp   
       export function formatHour(fecha){
-          fecha = new Date(+fecha)
+          fecha = new Date(fecha)
           let minutes = fecha.getMinutes();
             if(minutes.length < 2){
               minutes = '0' + minutes

@@ -11,10 +11,10 @@
          const handleSubmit = () => {
               if (!editStatus) {
                //  systStatus = "propAdd"
-                addProperty($property);
+                addProperty();
               } else {
                //  systStat}us = "propEditing"
-                updateProperty($property.claveEB);
+                updateProperty();
               }
             //   property.set("");
          };

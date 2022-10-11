@@ -1,42 +1,34 @@
 <script>
-	// import { firebase } from '@firebase/app';
+	import { searchTermG } from './../stores/stores.js';
   // Importaciones
-    import { contact } from '../stores/stores'
-    // import { db } from '../assets/db'
-    import ContData from '../components/ContData.svelte'
+    import { contact, systStatus,  } from '../stores/stores';
+    import ContData from '../components/ContData.svelte';
     import PropData from '../components/PropData.svelte';
-    import { db } from '../firebase.js'
-  import { addDoc, collection } from '@firebase/firestore';
-  import { now } from 'svelte/internal';
+    import { db, dbContacts } from '../firebase.js';
+    import { collection, addDoc, deleteDoc, getDoc, getDocs, doc, updateDoc} from 'firebase/firestore';
+    import { now } from 'svelte/internal';
 
-  // Declraraciones
-      let editStatus = false;
-      let tarea = {
-         notes: "Meliton",
-         task: "Melate",
-         createdAt: "25/nov/2022"
-      }
-
-      const tareas = collection(db, "todos")
-
-      // let allPropertiesName = [];
-      // let properties;
-      // let commBinnacle;
-      // let noteBinnacle;
-
+  // Decalraciones
+    let editStatus = false;
+    
   // Funciones
     // Edición o Alta de contacto
-          function handleSubmit() {
-            if  (!editStatus) {
-              addContact();
-              // console.log("Contacto guardado")
-              } else {
-                // updateContact();                
-              }
-          };
+        async function handSubmit($contact) {  
+          console.log($contact)        
+          if($systStatus != "contEditing"){
+               const todoToAdd = collection(db, "contacts")
+               await addDoc(todoToAdd, $contact);
+            } else {
+               await updateDoc(doc(db, "contacts", $contact.id), $contact)
+               editStatus = false;
+            }
+            $contact = []; 
+            // searchTerm = "";
+            location.href = "/"
+        };
 
           // const db = firebase.firestore();
-    // Añadir contacto
+    // Añadir Contacto y Bitácora
           export  function addContact (tarea) {  
             try {
               // commBinnacle = (`Se le agregó al contacto: ${contact.name} ${contact.lastname} del ${contact.telephon}`)
@@ -86,27 +78,17 @@
 </script>
 
   <!-- ContData  Datos Personales del Contacto -->
-
             <div class="altaContactos">
-              <form class="" on:submit|preventDefault={addContact}>           
-
-              <ContData />
-
-  <!-- PropData Datos de la Propiedad  -->
-
-              <PropData />
-
-  <!--  Botones   -->
-              <div class="row align-center">              
-                <div class="col">        
-                  <button>
-                    {#if !editStatus}Guardar{:else}Editar{/if}</button>
-                  </div>
-                  
+              <!-- <form class="" on:submit|preventDefault={handSubmit}>       -->
+                <ContData />
+                <PropData />
+                <div class="row align-center">              
+                  <div class="col">        
+                    <button on:click={()=>handSubmit($contact)}>{#if !editStatus}Guardar{:else}Editar{/if}</button>
+                  </div>                  
                   <div class="col">
                     <button class="btn-outline-warning col-3 row" on:click={onCancel}>Cancel</button>
                   </div>
-                </div>
-              
-              </form>
+                </div>              
+              <!-- </form> -->
             </div>
