@@ -34,7 +34,7 @@ export const contact = writable({
    selecTP: "",      // Tipo de propiedad
    contactType: "",  // Modo de contacto
    contactStage: "", // Etapa del cliente
-   createdAt: "",
+   createdAt: "",    // Fecha de alta
    locaProperty: [], // Localicacion buscada
    tagsProperty: [], // Etiquetas
    sendedProperties:[],  // Propiedades enviadas
@@ -58,7 +58,7 @@ export const contact = writable({
       urlProp: "",
       urlSinergy: "",
       colonia: "",
-      selectTP: "",
+      selecTP: "",
       selecTO: "",
       tagsProperty: [],
       locaProperty: [],

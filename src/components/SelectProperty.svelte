@@ -22,7 +22,8 @@
 
       // Edit
          function editProperty() {
-            // $systStatus = "propEditing"
+            console.log($property)
+            $systStatus = "propEditing"
          }
 
       // Delete
@@ -52,7 +53,7 @@
             </div>            
             <div class="descSelect">
             <h4> {$property.claveEB} {$property.nameProperty}</h4>
-            <h5>{$property.selectTP} en Col. {$property.colonia} al {$property.locaProperty} de la ciudad.</h5>
+            <h5>{$property.selecTP} en Col. {$property.colonia} al {$property.locaProperty} de la ciudad.</h5>
             <h6>Precio: {$property.price}</h6>
             <div>
                <h6>{$property.beds} Recamaras, {$property.bathroom} Baños y {$property.halfBathroom} Medio Baño</h6>

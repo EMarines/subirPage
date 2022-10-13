@@ -14,12 +14,12 @@
   import team from '../assets/images/team.png';
   import { dbContacts, dbProperties, dbTodos } from '../firebase'
 
-  let fecha;
-  let todos= [];
+  // let fecha;
+  // let todos= [];
 
-  let ordeBinnacle= db.binnacle
-  let orderContacts = db.contactos
-  let orderTodos = db.todo
+  // let ordeBinnacle= db.binnacle
+  // let orderContacts = db.contactos
+  // let orderTodos = db.todo
 
 
 </script>

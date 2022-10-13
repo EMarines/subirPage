@@ -1,5 +1,4 @@
 <script>
-	import { searchTermG } from './../stores/stores.js';
   // Importaciones
     import { contact, systStatus,  } from '../stores/stores';
     import ContData from '../components/ContData.svelte';
@@ -10,14 +9,21 @@
 
   // Decalraciones
     let editStatus = false;
+    // let horaTS = date.getTime()
+    // var horaTS = new Date()
+    let createdAt
     
   // Funciones
     // Edición o Alta de contacto
-        async function handSubmit($contact) {  
+        async function handSubmit($contact) { 
+          // horaTS=new Date()
+          console.log($contact)
+          // $contact.concat(createdAt, Date.now())
+
           console.log($contact)        
           if($systStatus != "contEditing"){
-               const todoToAdd = collection(db, "contacts")
-               await addDoc(todoToAdd, $contact);
+               const contToAdd = collection(db, "contacts")
+               await addDoc(contToAdd, $contact);
             } else {
                await updateDoc(doc(db, "contacts", $contact.id), $contact)
                editStatus = false;
@@ -70,10 +76,10 @@
             };
 
     // On Cancel
-            function onCancel() {
-              editStatus = true
-              window.location.href = "./contactos"
-            };
+          function onCancel() {
+            editStatus = true
+            location.href = "/"
+          };
 
 </script>
 
@@ -81,7 +87,7 @@
             <div class="altaContactos">
               <!-- <form class="" on:submit|preventDefault={handSubmit}>       -->
                 <ContData />
-                <PropData />
+                <!-- <PropData /> -->
                 <div class="row align-center">              
                   <div class="col">        
                     <button on:click={()=>handSubmit($contact)}>{#if !editStatus}Guardar{:else}Editar{/if}</button>

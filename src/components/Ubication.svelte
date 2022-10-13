@@ -12,12 +12,12 @@
 	</div>
 
 	<div class="filterLocationOne">
-		<label for="northwest">/NorOeste
-			<input value="NorOeste" id="northwest" type="checkbox" bind:group={ubication} />
+		<label for="northwest">/Noroeste
+			<input value="Noroeste" id="northwest" type="checkbox" bind:group={ubication} />
 		</label>
 
 		<label for="northeast">
-			<input value="NorEste" id="northeast" type="checkbox" bind:group={ubication} />NorEste\
+			<input value="Noreste" id="northeast" type="checkbox" bind:group={ubication} />NorEste\
 		</label>
 	</div>  
 
@@ -28,7 +28,7 @@
 
 		<label for="townNorth"
 					 >Centro Norte
-			<input value="CentroNorte" id="townNorth" type="checkbox" bind:group={ubication} />
+			<input value="Centronorte" id="townNorth" type="checkbox" bind:group={ubication} />
 		</label>
 
 		<label for="east">

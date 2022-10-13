@@ -100,11 +100,7 @@
 
     // Edit Contact
         function editContact() {
-          // console.log($contact)
           $systStatus = "contEditing"
-          // showAltCont = true;
-          // console.log($systStatus)
-          // location.href="/altaContacto"
         }
 
     // Delete Contact

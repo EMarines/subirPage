@@ -10,92 +10,166 @@
       import SelectProperty from '../components/SelectProperty.svelte';
       import { dbProperties } from '../firebase';
       import AltaPropiedad from './AltaPropiedad.svelte';
-      import { db } from '../assets/db'
-      import About from './About.svelte';
-      // import { properties } from './../assets/parameters.js';
-      // import { searchProperty } from './../assets/funcions/search.js';
-      // import checkLoggedIn from "./router";
-      // import {navigate} from "svelte-routing";
 
    // Decalaraciónes
       let searchTerm;
+      // let toRender = [];
+      let editStatus = false;
       let contCheck = [];
-      let proRender = [];
       let item;
 
       $systStatus = "start";
 
-      proRender = dbProperties;
+   //Pagination
+      let currentPage = 1; // Update this to simulate page change.
+      let postsPerPage = 20;
+      let toRender = dbProperties;
+      $: totalPosts = toRender.length;
+      $: totalPages = Math.ceil(totalPosts / postsPerPage);
+      $: postRangeHigh = currentPage * postsPerPage;
+      $: postRangeLow = postRangeHigh - postsPerPage;
+
+      const setCurrentPage = newPage => {
+         currentPage = newPage;
+      }
+
+      toRender = dbProperties;
 
    // Funciones
-      // CRUD
-            function handAddPrperty(){
-               $systStatus = "propAdding"
-            }
-      
-            function searProp(searchTerm) {
-               $systStatus = "showProperties"
-               let properties = dbProperties
-               // window.location.href = '/about';
-               proInterest.set(searchProperty(properties, searchTerm))
-            }
-            
+      // Propiedad Seleccionada
             function selectProduct(item) {
                console.log($systStatus)
                $property = item
                $systStatus = "propSelect"
                console.log($systStatus, $property)
-
             };
+
+      // CRUD
+         // Manejo Alta o edición
+            function handAddPrperty(){
+               $systStatus = "propAdding"
+            }
+      
+      // Search Property
+            function searProp() {
+               return toRender= dbProperties.filter((property) => {
+               let contInfo = (property.nameProperty + " " + property.colonia).toLowerCase();
+               return contInfo.includes(searchTerm.toLowerCase());
+               })
+            };
+            
+      // Ordena dbProperties por fecha de publicación
+            (() => {
+            return toRender = dbProperties.sort((a, b) => {
+               if(a.createdAt < b.createdAt){
+                  return 1;
+               }
+               if(a.createdAt > b.createdAt){
+                  return -1;
+               }
+               return 0
+            });
+         })();
 
   
 
 </script>
 
 
-      <!--Encabezado de Propiedades  -->
-         <div>
-         <div>
-            <h1>Estas en Propiedades</h1>
-            <img src={house} alt="propiedad" class="imgTitle">
-         </div>
-         {#if $systStatus = "start"}  
-            <button on:click={handAddPrperty}>Alta de Propiedad</button>
-            <Search bind:searchTerm on:input={() => searProp(searchTerm)} />
-         {/if}
-      <!-- Propiedades -->
-         {#if $systStatus === "start"}
-            <main id="bookshelf">
-               {#each dbProperties as item}
-                  <section class = "property" on:click={() => selectProduct(item)} transition:scale={{duration: 500, easing: expoInOut}}>                  
-                     <input type="checkbox" value={item.urlProp} class="form-check" bind:group={contCheck}/>	
-                     <CardProperty {...item} />
-                  </section>
-               {/each}
-            </main>
-         
-      <!-- Propiedad seleccionada -->
-         {:else if $systStatus === "propSelect"}
+      <!--Encabezado de Propiedades e imagen -->
+         <div class="container">
             <div>
-               <SelectProperty {$property} /> 
+               <h1>Propiedades</h1>
+               <img src={house} alt="propiedad" class="imgTitle">
             </div>
-            
-      <!-- Edición de propiedad -->           
-               {:else if $systStatus  === "propEditing"}               
-                  <div class="container"> 
-                     <AltaPropiedad {...$property} />
-                  </div> 
 
-      <!-- Alta de propiedad -->             
-               {:else if $systStatus === "propAdding"}
-                  <div class="container">
-                     <AltaPropiedad  />
-                  </div>   
-               {/if}
-            
-            
-      </div>
+            {#if $systStatus === "start"}  
+               <h2>{dbProperties.length} Propiedades a Mostrar</h2>
+               <button on:click={handAddPrperty}>Alta de Propiedad</button>
 
+               <Search bind:searchTerm on:input={searProp} />
+            <!-- {/if} -->
+         <!-- Propiedades -->
+            <!-- {#if $systStatus === "start"} -->
+            <div class="mosPag">   
+
+               <main id="bookshelf">
+                  {#each toRender as item, i}
+                     {#if i >= postRangeLow && i < postRangeHigh}
+
+                     <section class = "property" on:click={() => selectProduct(item)} transition:scale={{duration: 500, easing: expoInOut}}>                  
+                        <!-- <input type="checkbox" value={item.urlProp} class="form-check" bind:group={contCheck}/>	 -->
+                        <CardProperty {...item} />
+                     </section>                     
+                     {/if}
+                  {/each}
+               </main>
+
+               <!-- Paginación del en Dom -->
+               <div class = "container pagination">
+                  <ul>
+                  <!-- <div class="pagiItem"> -->
+                     
+                     {#if currentPage > 1}
+                        <li><a href="/blog" on:click|preventDefault={() => setCurrentPage(1)}>first</a></li>
+                        <li><a href="/blog/{currentPage - 1}" on:click|preventDefault={() => setCurrentPage(currentPage - 1)}>previous</a></li>
+                     {/if}
+                     <!-- </div> -->
+                     
+                     <!-- <div class="pagiItem"> -->
+                        {#each [3,2,1] as i}
+                           {#if currentPage - i > 0}
+                              <li><a href="/blog/{currentPage - i}" on:click|preventDefault={() => setCurrentPage(currentPage - i)}>{currentPage - i}</a></li>
+                           {/if}
+                        {/each}
+                        <!-- </div> -->
+
+                     <li><span>{currentPage}</span></li>
+               
+                  <!-- <div class="pagiItem"> -->
+                        {#each Array(3) as _, i}
+                           {#if currentPage + (i+1) <= totalPages}
+                              <li><a href="/blog/{currentPage + (i+1)}" on:click|preventDefault={() => setCurrentPage(currentPage + (i+1))}>{currentPage + (i+1)}</a></li>
+                           {/if}
+                        {/each}
+                  <!-- </div> -->
+      
+      
+                 <!-- <div class="pagiItem">  -->
+                        {#if currentPage < totalPages}
+                           <li><a href="/blog/{currentPage + 1}" on:click|preventDefault={() => setCurrentPage(currentPage + 1)}>next</a></li>
+                           <li><a href="/blog/{totalPages}" on:click|preventDefault={() => setCurrentPage(totalPages)}>last</li>
+                        {/if}
+                 <!-- </div> -->
+                  </ul>      
+               </div>
+
+            </div>
+
+            {/if}
+         <!-- Propiedad seleccionada -->
+            {#if $systStatus === "propSelect"}
+               <div>
+                  <SelectProperty {...$property} /> 
+               </div>
+            {/if}   
+         <!-- Edición de propiedad -->           
+                  {#if $systStatus  === "propEditing"}               
+                     <div class="container"> 
+                        <AltaPropiedad  {...$property}/>
+                     </div>
+                  {/if} 
+
+         <!-- Alta de propiedad -->             
+                  {#if $systStatus === "propAdding"}
+                     <div class="container">
+                        <AltaPropiedad  />
+                     </div>   
+                  {/if}
+               
+               
+         </div>
+         <!-- </div> -->
  <style>
 
    main#bookshelf {
@@ -120,6 +194,10 @@
 
    .imgTitle{
       max-width: 148px;
+   }
+
+   .mosPag{
+      display: flex;
    }
 
 

@@ -116,62 +116,62 @@
       <!-- </form> -->
 
 <!-- Agrega listado de tareas -->
-      <h3>Tareas</h3>
-      <ol>
-         {#each toRender as item}
-         {#if !item.timeTask}
-         <div>
-               <li class="schedule" class:complete={item.isComplete}>
-                  <span>
-                     <button on:click={ () => markTodoAsComplete(item.id) }>✔</button>
-                     <button on:click={ () => deleteTodo(item.id) }>✖</button>
-                     <button on:click={ () => editTodo(item)}>✔✖</button>                  
-                  </span>
-                  <spam>
-                     {formatDate(item.endTask)} -*-
-                     {item.task} -*-
-                     {#if item.notes}
-                        {item.notes} 
-                     {/if}          
-                  </spam>        
-               </li>
-            </div>
-            {/if}
-         {:else}
-            <p>No Hay Tareas Pendientes</p>
-         {/each}
-            <p class="error">{error}</p>
-      </ol>
+      <div class= "container">     
+         <h3>Tareas</h3>
+            <ol>
+               {#each toRender as item}
+                  {#if !item.timeTask}
+                     <div>
+                        <li class="schedule" class:complete={item.isComplete}>
+                           <span>
+                              <button on:click={ () => markTodoAsComplete(item.id) }>✔</button>
+                              <button on:click={ () => deleteTodo(item.id) }>✖</button>
+                              <button on:click={ () => editTodo(item)}>✔✖</button>                  
+                           </span>
+                           <spam>
+                              {formatDate(item.endTask)} -*-
+                              {item.task} -*-
+                              {#if item.notes}
+                                 {item.notes} 
+                              {/if}          
+                           </spam>        
+                        </li>
+                     </div>
+                  {/if}
+                  {:else}
+                     <p>No Hay Tareas Pendientes</p>
+               {/each}
+                     <p class="error">{error}</p>
+            </ol>
    <!-- Agrega citas -->
-      <h3>Agenda</h3>
-      <ol>
-         {#each toRender as item}
-         
-         {#if item.timeTask}
-         <div  on:dblclick={() => editTodo}>
-               <li class="schedule" class:complete={item.isComplete}>
-                  <span>
-                     <button on:click={ () => markTodoAsComplete(item.id) }>✔</button>
-                     <button on:click={ () => deleteTodo(item.id) }>✖</button>
-                     <button on:click={ () => editTodo(item) } >✔✖</button>
-                  </span>
-                  <spam>
-                     {item.timeTask} -*-
-                     {formatDate(item.endTask)} -*-
-                     {item.task} -*-
-                     {#if item.notes}
-                        {item.notes} 
-                     {/if}            
-                  </spam>        
-               </li>
-         </div>
-            {/if}
-         {:else}
-            <p>No Hay Tareas Pendientes</p>
-         {/each}
-            <p class="error">{error}</p>
-      </ol>
-
+         <h3>Agenda</h3>
+            <ol>
+               {#each toRender as item}            
+                  {#if item.timeTask}
+                     <div  on:dblclick={() => editTodo}>
+                           <li class="schedule" class:complete={item.isComplete}>
+                              <span>
+                                 <button on:click={ () => markTodoAsComplete(item.id) }>✔</button>
+                                 <button on:click={ () => deleteTodo(item.id) }>✖</button>
+                                 <button on:click={ () => editTodo(item) } >✔✖</button>
+                              </span>
+                              <spam>
+                                 {item.timeTask} -*-
+                                 {formatDate(item.endTask)} -*-
+                                 {item.task} -*-
+                                 {#if item.notes}
+                                    {item.notes} 
+                                 {/if}            
+                              </spam>        
+                           </li>
+                     </div>
+                  {/if}
+                  {:else}
+                     <p>No Hay Tareas Pendientes</p>
+               {/each}
+                  <p class="error">{error}</p>
+            </ol>
+      </div>
 <!-- Muestra el fomato de schedule -->
          <!-- {#if showShedule}
             <div>

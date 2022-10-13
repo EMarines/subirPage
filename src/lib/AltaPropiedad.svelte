@@ -41,11 +41,13 @@
             <div class="altaContactos">
               <form class="" on:submit|preventDefault={handleSubmit}>           
 
-              <!-- <ContData /> -->
-
-   <!-- PropData Datos de la Propiedad  -->
-
-              <PropData />
+               <!-- <ContData /> -->
+               
+               <!-- PropData Datos de la Propiedad  -->
+               <div>
+                  <img src={$property.urlImage} alt={$property.nameProperty}>
+                  <PropData />
+               </div>
 
    <!--  Botones   -->
                <div class="row align-center">              
@@ -61,3 +63,11 @@
                
                </form>
   </div>
+
+  <style>
+
+   img{
+      width: 250px;
+   }
+
+  </style>

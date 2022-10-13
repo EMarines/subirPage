@@ -22,14 +22,14 @@
 <div>
 
 	<label>Recamara en P.B.
-		<input type="checkbox" value="Recamara en P.B." bind:group={tag} />
+		<input type="checkbox" value="Recamara en PB" bind:group={tag} />
 	</label>	
    <label>Patio Amplio
    <input type="checkbox" value="Patio Amplio" bind:group={tag} />
    </label>
    
    <label>Lista para Habitarse
-   <input type="checkbox" value="Lista para Habitarse" bind:group={tag} />
+   <input type="checkbox" value="Lista Habitarse" bind:group={tag} />
    </label>
 </div>
 	
@@ -44,10 +44,10 @@
 
 <style>
 	section{
-			width: 30%;
-			border: 2px solid purple;
-			border-radius: 10px;
-			padding: 8px;
+		width: 30%;
+		border: 2px solid purple;
+		border-radius: 10px;
+		padding: 8px;
 	}
 	div{
 		font-size: 12px;
