@@ -1,73 +1,93 @@
 <script>
-    import { property } from '../stores/stores'
-    import { db } from '../assets/db'
-    import ContData from '../components/ContData.svelte'
-    import PropData from '../components/PropData.svelte';
+	// import { properties } from './../assets/parameters.js';
+	import { systStatus } from './../stores/stores.js';
+   import { property } from '../stores/stores'
+   import { collection, addDoc, deleteDoc, getDoc, getDocs, doc, updateDoc} from 'firebase/firestore';
+   import { formatDate } from '../assets/funcions/sevralFunctions'
+   import { db } from '../firebase'
+   import ContData from '../components/ContData.svelte'
+   import PropData from '../components/PropData.svelte';
 
     let editStatus = false;
+    let createdAt=1;
 
 // Funciones
-   // Alta o edición
-         const handleSubmit = () => {
-              if (!editStatus) {
-               //  systStatus = "propAdd"
-                addProperty();
-              } else {
-               //  systStat}us = "propEditing"
-                updateProperty();
-              }
-            //   property.set("");
-         };
+   // Edicion o Alta de Propiedad
+      async function handleSubmit() { 
+         console.log("Estas en add property", $systStatus)
+         if($systStatus === "propEditing"){
+            console.log("estas dentro de edit property", $property.id)
+            await updateDoc(doc(db, "contacts", $property.id), $property)
+            editStatus = false;
+         } else {
+             createdAt = Date.now()
+             $property = {
+               ...$property, createdAt
+             }     
+            console.log($property)
+               const contToAdd = collection(db, "properties")
+               await addDoc(contToAdd, $property);
+            }
+            // $systStatus = "start"
+        };
 
-         function addProperty() {
+         async function addProperty($property) {
+            console.log($property)
 
+            createdAt = Date.now();
+            try {          
+               $property = {
+                  ...$property, createdAt
+               };
+               console.log($property)
+              const response =  collection(db, "properties")
+              addDoc(response, $property)                                          
+            } catch (error) {
+              console.log("error", error)
+            }          
+            console.log($property)
+            // location.href = "/";
          };
 
          function updateProperty() {
-
+            $systStatus = "propEditing"
          }
 
          const onCancel = () => {
             editStatus = false;
-            window.location.href = "./propiedades"
+            window.location.href = "./"
          }
 
 </script>
 
-
-
-   <!-- ContData  Datos Personales del Contacto -->
-
+      <!-- ContData  Datos Personales del Contacto -->
+         <form class="propiedad" on:submit|preventDefault={handleSubmit}>           
             <div class="altaContactos">
-              <form class="" on:submit|preventDefault={handleSubmit}>           
 
-               <!-- <ContData /> -->
-               
-               <!-- PropData Datos de la Propiedad  -->
+      <!-- PropData Datos de la Propiedad  -->
                <div>
                   <img src={$property.urlImage} alt={$property.nameProperty}>
                   <PropData />
                </div>
 
-   <!--  Botones   -->
-               <div class="row align-center">              
-                  <div class="col">        
-                  <button>
-                     {#if !editStatus}Guardar{:else}Editar{/if}</button>
-                  </div>
-                  
-                  <div class="col">
-                     <button class="btn-outline-warning col-3 row" on:click={onCancel}>Cancel</button>
-                  </div>
-                  </div>
-               
-               </form>
-  </div>
+      <!--  Botones   -->
+               <div class="contSavCan">        
+                  <button class="btn-save">{#if $systStatus === "propAdding"}Guardar{:else}Editar{/if}</button>
+                  <button class="btn-cancel" on:click={onCancel}>Cancel</button>
+               </div>
+                     
+            </div>
+         </form>
 
   <style>
 
    img{
       width: 250px;
    }
+
+   .contSavCan{
+    width: 90%;
+    margin-left: 5%;
+  }
 
   </style>

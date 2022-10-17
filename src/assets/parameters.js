@@ -44,7 +44,7 @@
 
           export const contactMode = ["Telefono", "WhatsApp", "Email", "SMS"];
 
-          export const typemode = ["Venta", "Renta"];
+          export const typeOperation = ["Venta", "Renta"];
 
           export const ranges = ["Rango", "PRM", "SGN", "TRC", "CRT", "QNT", "SXT", "SPT"];
 
@@ -54,6 +54,9 @@
 
    // Etapas del cliente
             export const contactStage = ["Etapa1", "Etapa2", "Etapa3", "Etapa4", "Etapa5" ] 
+
+      // Tipo de propieatrio
+            export const typeSaller = ["Dueño", "Familiar", "Inmobiliaria", "Conocido" ] 
             
       // Etiquetas
             export const tags = ["Fracc. Privado", "Frente a Parque", "Una Planta", "Recamara en P.B.", "Patio Amplio", "Lista para Habitarse", "Nueva"]

@@ -9,18 +9,16 @@
 
   // Decalraciones
     let editStatus = false;
-    // let horaTS = date.getTime()
-    // var horaTS = new Date()
-    let createdAt
+    let createdAt;
+
     
   // Funciones
     // Edición o Alta de contacto
         async function handSubmit($contact) { 
-          // horaTS=new Date()
-          console.log($contact)
-          // $contact.concat(createdAt, Date.now())
-
-          console.log($contact)        
+          createdAt = Date.now()
+          $contact = {
+            ...$contact, createdAt
+          }     
           if($systStatus != "contEditing"){
                const contToAdd = collection(db, "contacts")
                await addDoc(contToAdd, $contact);
@@ -29,11 +27,9 @@
                editStatus = false;
             }
             $contact = []; 
-            // searchTerm = "";
-            location.href = "/"
+            $systStatus = "contSelect"
         };
 
-          // const db = firebase.firestore();
     // Añadir Contacto y Bitácora
           export  function addContact (tarea) {  
             try {
@@ -88,13 +84,18 @@
               <!-- <form class="" on:submit|preventDefault={handSubmit}>       -->
                 <ContData />
                 <!-- <PropData /> -->
-                <div class="row align-center">              
-                  <div class="col">        
-                    <button on:click={()=>handSubmit($contact)}>{#if !editStatus}Guardar{:else}Editar{/if}</button>
-                  </div>                  
-                  <div class="col">
-                    <button class="btn-outline-warning col-3 row" on:click={onCancel}>Cancel</button>
+                  <div class="contSavCan">        
+                    <button class="btn-save" on:click={()=>handSubmit($contact)}>{#if !editStatus}Guardar{:else}Editar{/if}</button>         
+                    <button class="btn-cancel" on:click={onCancel}>Cancel</button>
                   </div>
                 </div>              
               <!-- </form> -->
-            </div>
+
+<style>
+  .contSavCan{
+    width: 90%;
+    margin-left: 5%;
+    /* justify-content: center; */
+  }
+
+</style>

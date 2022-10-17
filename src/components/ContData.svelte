@@ -1,76 +1,86 @@
 <script>
    // Importaciones
-      import { onMount } from 'svelte';
-      import { db } from '../assets/db';
-      import { contact } from '../stores/stores'
+      import { contact, systStatus } from '../stores/stores'
       import { typeContacts, modeContact, modePays } from '../assets/parameters'
       import { dbProperties } from '../firebase';
-      import { typeProperties, oneTofive, oneToFour } from '../assets/parameters'
+      import { typeProperties, oneTofive, oneToFour, ranges } from '../assets/parameters'
       import Ubication from './Ubication.svelte';
       import Tags from './Tags.svelte'
+      import { formatDate} from '../assets/funcions/sevralFunctions'
+      import { onMount }  from 'svelte';
+      import { db } from '../assets/db';
 
    // Declaraciones
       var allPropertiesName = [];
       let properties = dbProperties;
+      let editDate = false;
       
-      
-      // Ponerle el nombre y clave como nombre de propiedad
+   // Ponerle el nombre y clave como nombre de propiedad
       (() => {
          for(let eachProperty of properties) {
-            let namProp =(`${eachProperty.nameProperty} ${eachProperty.claveEB}`)
+            let namProp =(`${eachProperty.nameProperty} ${eachProperty.claveEB} - ${(eachProperty.price/1000000).toFixed(2)}`)
             allPropertiesName = [...allPropertiesName, namProp ]
          }  
          return allPropertiesName = allPropertiesName.sort();
       })();
-      
-    
-         // let $contact.createdAt = Date.now();
-    
 
+   // Muestro u oculta el imput createdAt
+      function mostInput(){
+         editDate = true;
+      }
 
 </script>
    <!-- Datos Personales -->
          <h1 class="sectionTitle">Alta Contactos</h1>
 
+   <!-- Muestro o oculta la fecha para mostrar o editar -->
          <div class="">
-            <div class="contactInput">
-               <input type="date" placeholder="Fecha de Alta" bind:value={$contact.createdAt}  />
+            <div>
+               {#if editDate}
+                  <input class=" dataInput" type="date" bind:value={$contact.createdAt}  />
+               {:else}
+                  <h3 class=" dataInput" on:dblclick={mostInput} >{formatDate($contact.createdAt)}</h3>
+               {/if}
             </div>
+
+
+
             <div class="contactInput">
-               <input type="text" placeholder="Nombre" bind:value={$contact.name}  />
+               <input  class="dataInput" type="text" placeholder="Nombre" bind:value={$contact.name}  />
+           
+               <input class="dataInput" type="text" placeholder="Apellido" bind:value={$contact.lastname} />
             </div>
+
             <div class="contactInput">
-                  <input type="text" placeholder="Apellido" bind:value={$contact.lastname} class="form-control"/>
-            </div>
-            <div class="contactInput">
-               <input type="tel" placeholder="telefono" bind:value={$contact.telephon} class="form-control"/>
-            </div>
-            <div class="contactInput"> 
-               <input type="email" placeholder="email" bind:value={$contact.email} class="form-control"/>
+               <input class="dataInput" type="tel" placeholder="teléfono" bind:value={$contact.telephon} />
+
+               <input class="dataInput" type="email" placeholder="email" bind:value={$contact.email} />
             </div>
          </div>
 
+         
    <!-- Propiedad de Contacto -->
-         <select class="selTP" id="selTP" name="selTP" bind:value={$contact.propCont}>
-         <option disabled selected value="">Propiedad de Contacto</option>
-            {#each allPropertiesName as typeProperty}
-                  <option type="checkbox" value={typeProperty}>{typeProperty}</option>
-            {/each}
-         </select>
+         <div class="col">
+            <select class=" dataInput" id="selTP" name="selTP" bind:value={$contact.propCont}>
+               <option disabled selected value="">Propiedad de Contacto</option>
+               {#each allPropertiesName as typeProperty}
+               <option class=" dataInput" type="checkbox" value={typeProperty}>{typeProperty}</option>
+               {/each}
+            </select>
+            
+   <!-- Tope de Presupuesto -->
+            <input class=" dataInput" type="number" placeholder="Presupuesto"bind:value={$contact.budget}/>
+         </div>
 
    <!-- Comentarios del contacto -->
          <div class="col">
-            <input type="textarea" placeholder="Comentarios" bind:value={$contact.comContact} class="form-control"/>
+            <input class="textareaInput" type="textarea" placeholder="Comentarios" bind:value={$contact.comContact}/>
          </div>
 
-   <!-- Tope de Presupuesto -->
-         <div class="col">
-            <input type="number" placeholder="Presupuesto"bind:value={$contact.budget} class="form-control"/>
-         </div>
          
 
    <!-- Tipo de Contacto -->
-            <select bind:value={$contact.typeContact}>
+            <select class="othersInput" bind:value={$contact.typeContact}>
                <option disabled selected value="">Tipo de Contacto</option>
                   {#each typeContacts as typeContact}
                      <option type="checkbox" value={typeContact}>{typeContact}</option>
@@ -78,7 +88,7 @@
             </select>
 
    <!-- Modo de Contacto -->
-            <select bind:value={$contact.selecMC}>
+            <select class="othersInput" bind:value={$contact.selecMC}>
                <option disabled selected value="">Modo de Contacto</option>
                {#each modeContact as selecMC}
                <option type="checkbox" value={selecMC}>{selecMC}</option>
@@ -86,7 +96,7 @@
             </select>
 
    <!-- Modo de Pago -->
-            <select bind:value={$contact.modePay}>
+            <select class="othersInput" bind:value={$contact.modePay}>
                <option disabled selected value="">Modo de Pago</option>
                {#each modePays as modeP}
                <option type="checkbox" value={modeP}>{modeP}</option>
@@ -94,42 +104,93 @@
             </select>
 
   
-     <!-- Tipo de propiedad buscada -->
-     <select class="selTP" id="selTP" name="selTP" bind:value={$contact.selecTP}>
-      <option disabled selected value="">Tipo de Propiedad</option>
-      {#each typeProperties as selecTP}
-            <option type="checkbox" value={selecTP}>{selecTP}</option>
-      {/each}
-    </select>
+   <!-- Tipo de propiedad buscada -->
+            <select class="othersInput" id="selTP" name="selTP" bind:value={$contact.selecTP}>
+               <option disabled selected value="">Tipo de Propiedad</option>
+               {#each typeProperties as selecTP}
+                     <option type="checkbox" value={selecTP}>{selecTP}</option>
+               {/each}
+            </select>
 
-<!-- Características buscadas -->
-    <select bind:value={$contact.numBeds}>
-      <option disabled selected value="" ># Recámaras</option>
-      {#each oneTofive as beds}
-        <option type="checkbox" value={beds} >{beds} Recámaras</option>
-      {/each}
-    </select>
+   <!-- Rango de busqueda -->
+            <select class="othersInput" id="ranges" name="ranges" bind:value={$contact.rangeProp}>
+               <option disabled selected value="">Rango de Busqueda</option>
+               {#each ranges as range}
+                     <option type="checkbox" value={range}>{range}</option>
+               {/each}
+            </select>
 
-    <select bind:value={$contact.numBaths}>
-      <option disabled selected value=""># Baños</option>
-      {#each oneToFour as bathroom}
-        <option type="checkbox" value={bathroom}>{bathroom} baños</option>
-      {/each}
-    </select>
 
-    <select bind:value={$contact.halfBathroom}>
-      <option disabled selected value=""># Medios Baños</option>
-      {#each oneToFour as numberHalfBath}
-        <option type="checkbox" value={numberHalfBath}>{numberHalfBath} Medios baños</option>
-      {/each}
-    </select>
+   <!-- Características buscadas -->
+         <select class="othersInput" bind:value={$contact.numBeds}>
+            <option disabled selected value="" ># Recámaras</option>
+            {#each oneTofive as beds}
+            <option type="checkbox" value={beds} >{beds} Recámaras</option>
+            {/each}
+         </select>
 
-    <select bind:value={$contact.numParks}>
-      <option disabled selected value=""># Estacionamientos</option>
-      {#each oneToFour as park}
-        <option type="checkbox" value={park}>{park} Estacionamientos</option>
-      {/each}
-    </select>
+         <select class="othersInput" bind:value={$contact.numBaths}>
+            <option disabled selected value=""># Baños</option>
+            {#each oneToFour as bathroom}
+            <option type="checkbox" value={bathroom}>{bathroom} baños</option>
+            {/each}
+         </select>
 
-    <Ubication bind:ubication={$contact.locaProperty}/>
-   <Tags bind:tag = {$contact.tagsProperty} />
+         <select class="othersInput" bind:value={$contact.halfBathroom}>
+            <option disabled selected value=""># Medios Baños</option>
+            {#each oneToFour as numberHalfBath}
+            <option type="checkbox" value={numberHalfBath}>{numberHalfBath} Medios baños</option>
+            {/each}
+         </select>
+
+         <select  class="othersInput"bind:value={$contact.numParks}>
+            <option disabled selected value=""># Estacionamientos</option>
+            {#each oneToFour as park}
+            <option type="checkbox" value={park}>{park} Estacionamientos</option>
+            {/each}
+         </select>
+   <!-- Ubicacion y etiquetas -->
+         <div class="ubiTags">
+            <Ubication bind:ubication={$contact.locaProperty}/>
+            <Tags bind:tag = {$contact.tagsProperty} />
+         </div>
+
+<style>
+
+   .othersInput{
+      width: 350px;
+		height: 35px;
+		font-size: 22px;
+      font-weight: 400;
+		color: rgb(28, 28, 179);
+		border-radius: 5px;
+      margin-bottom: 5px;  
+   }
+
+   .dataInput{
+      width: 350px;
+		height: 35px;
+		font-size: 22px;
+      font-weight: 400;
+		color: rgb(28, 28, 179);
+		border-radius: 5px;
+      margin-bottom: 5px; 
+   }
+
+   .textareaInput{
+      width: 700px;
+		height: 70px;
+		font-size: 22px;
+      font-weight: 400;
+		color: rgb(28, 28, 179);
+		border-radius: 5px;
+      margin-bottom: 5px; 
+   }
+
+   .ubiTags{
+      display: flex;
+      justify-content: space-evenly;
+      margin-bottom: 15px;      
+   }
+
+</style>

@@ -1,8 +1,6 @@
 <script>
 // @ts-nocheck
-
 	// Importaciones
-      import { db } from '../assets/db';
       import user from '../assets/images/add-user.png';
       import ContactCard from '../components/ContactCard.svelte';
       import Search from '../components/Search.svelte';
@@ -13,9 +11,9 @@
 
    // Declaraciónes
       let searchTerm;
-      // let toRender = [];
       $systStatus = "start";
       let item;
+      // let toRender = [];
       // $conInterest = dbContacts;
 
    //Pagination
@@ -34,13 +32,12 @@
    // Funciones 
       // Agregar contacto
          const handAddContact = () => {
-            // $contact = [];
             $systStatus = "contAdding"
          };
 
       // Contacto Seleccionado
          const selectContact = (item) => {
-            // console.log(item)
+            searchTerm = "";
             $contact= item
             $systStatus = "contSelect";
          };
@@ -80,12 +77,11 @@
 
          {#if  $systStatus === "start"}
             <h2>{dbContacts.length} Contactos a Mostrar</h2>
-            <button on:click={handAddContact}>Alta de Contacto</button>
+            <button class="altaContacto" on:click={handAddContact}>Alta de Contacto</button>
 
             <Search bind:searchTerm on:input={searCont} /> 
 
    <!-- Rederiza los contactos  -->
-         <!-- {#if $systStatus == "start"}                            -->
             <div class="mosPag">   
                <div>    
                   {#each toRender as item, i}
@@ -155,14 +151,7 @@
             </div>
         {/if}
 
-      </main>
-
-   <!-- Botones del pagination -->
-      
-      
-      
-
-  
+      </main>  
 
 <style>
    img{
@@ -173,12 +162,14 @@
       display: flex;
    }
 
-   /* .pagination{
-      display: flex;
-      width: 1800px;
-   } */
+   .altaContacto{
+      width: 350px;
+		height: 35px;
+		font-size: 22px;
+		color: rgb(2, 10, 57);
+		border-radius: 5px;
+      background-color: rgb(195, 232, 239);
+      margin-bottom: 5px;
+   }
 
-   /* .pagiItem{
-      width: 250px;
-   } */
 </style>

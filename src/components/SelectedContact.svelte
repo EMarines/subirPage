@@ -3,6 +3,8 @@
 
   // Importaciones
     import { db, dbContacts, dbProperties } from '../firebase';
+    import { collection, deleteDoc, doc} from 'firebase/firestore';
+
     import Search from './Search.svelte';
     import AddToSchedule from './AddToSchedule.svelte';
     import CardProperty from './CardProperty.svelte';
@@ -32,7 +34,6 @@
     let listToRender = [];
     let showAltCont = false;
 
-    // $systStatus = "contSelect"
     console.log($systStatus)
 
   // Funciones
@@ -85,9 +86,6 @@
     // Cancel Button ""start""
       const onCancel = () => {
           editStatus = false;
-          // $contact=[];
-          searchTerm = "";
-          message = "";
           filteredProperties = [];
           $systStatus = "start";
       };
@@ -101,12 +99,17 @@
     // Edit Contact
         function editContact() {
           $systStatus = "contEditing"
-        }
+        };
 
     // Delete Contact
-        function deleteContact() {
-          console.log("Borraste de mentiras al contacto", $contact.name)
-        }
+        async function deleteContact() {
+          if(confirm("Deseas eleiminar definitivamente al contacto?")){
+            // console.log("Borraste al contacto", $contact)
+            await deleteDoc(doc(db, "contacts", $contact.id))
+            editStatus = false;
+            window.location.href = "/";
+          }  
+        };
 
     // Cerrar Shedule                       
         function close(){
@@ -128,7 +131,7 @@
           console.log(contCheck)
         };
 
-    console.log($systStatus)
+
  
 </script>
 
@@ -213,10 +216,10 @@
                   <h3>Propiedades encontradas: {$proInterest.length}</h3>
                                    
                   {#each $proInterest as item}
-                  <section class = "property" on:click={selectProduct} transition:scale={{duration: 500, easing: expoInOut}}>                  
-                    <input type="checkbox" value={item.urlProp} class="form-check" bind:group={contCheck}/>	
-                    <CardProperty {...item} />
-                  </section>
+                    <section class = "property" on:click={selectProduct} transition:scale={{duration: 500, easing: expoInOut}}>                  
+                      <input type="checkbox" value={item.urlProp} class="form-check" bind:group={contCheck}/>	
+                      <CardProperty {...item} />
+                    </section>
                   {/each}
                   {#if $proInterest.length === 0}
                       <h3>"No hay Propiedades para este contacto"</h3>

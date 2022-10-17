@@ -1,17 +1,19 @@
 <script>
    
    // Importaciones
-   import ContactCard from './CardProperty.svelte';
-   import { db } from '../assets/db';
-   import { conInterest, property } from '../stores/stores'
-   import { filtPropContInte } from '../assets/funcions/filContacts'
-	import { systStatus } from '../stores/stores';
+      import { db, dbProperties, dbContacts } from '../firebase';
+      import { deleteDoc, doc} from 'firebase/firestore';
+      import { conInterest, property } from '../stores/stores'
+      import { filtPropContInte } from '../assets/funcions/filContacts'
+      import { systStatus } from '../stores/stores';
+      import ContactCard from './CardProperty.svelte';
       // import { filtPropContInte } from '../assets/funcions/rangValue'
 
    // Declaraciones
       let checkedContacts = [];
       let currentId;
       let seeCont = false;
+      let editStatus= false;
       let lowRange, upRange;
 
    // Funciones
@@ -20,21 +22,26 @@
 
          }
 
-      // Edit
+   // Edit
          function editProperty() {
-            console.log($property)
             $systStatus = "propEditing"
-         }
+         };
 
-      // Delete
-         function deleteProperty(property) {
-
-         }
+   // Delete Contact
+          async function deleteProperty() {
+          if(confirm("Deseas eleiminar definitivamente la propiedad?")){
+            console.log("Borraste al propiedad")
+            // @ts-ignore
+            await deleteDoc(doc(db, "properties", $property.id))
+            editStatus = false;
+            $systStatus = "start"
+          }  
+        };
 
       // Buscar Interesados
          function findCustomers() {
             // console.log("La propiedad es: ", $property)
-            filtPropContInte($property, db.contacts)
+            filtPropContInte($property, dbContacts)
             // console.log("siiiiiii", lowRange, upRange)
             seeCont = !seeCont;
          }; 
@@ -77,7 +84,7 @@
             <div class="backAnt">
                <button class="btnCommon btnCancel" on:click={onCancel}>Regresar</button>
             </div>
-            <!-- Material icons -->
+   <!-- Material icons -->
             <div>
                <div class="iconContent">
                   <i on:click = {editProperty} class="material-icons edit">edit</i>

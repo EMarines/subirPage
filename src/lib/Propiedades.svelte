@@ -38,10 +38,8 @@
    // Funciones
       // Propiedad Seleccionada
             function selectProduct(item) {
-               console.log($systStatus)
                $property = item
                $systStatus = "propSelect"
-               console.log($systStatus, $property)
             };
 
       // CRUD

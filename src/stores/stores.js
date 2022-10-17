@@ -18,6 +18,7 @@ export const contact = writable({
    typeContact: "",  // Tipo de contacto
    name: "",
    lastname: "",
+   lastContact: "",
    telephon: "",
    email: "",
    selecMC: "",      // Modo de contacto
@@ -43,8 +44,10 @@ export const contact = writable({
 // Decraracion de Prperty
    export const property = writable ({
       typeProperty: "",
+      typeSaller: "",      // Tipo de encargado de la propiedad
       claveEB: "",
       claveMH: "",
+      createdAt: "",
       nameProperty: "",
       price: "",
       beds: "",
@@ -60,6 +63,7 @@ export const contact = writable({
       colonia: "",
       selecTP: "",
       selecTO: "",
+      typeOperation: "",      // Tipo de Operación
       tagsProperty: [],
       locaProperty: [],
       binnacle: [],

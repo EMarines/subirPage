@@ -18,6 +18,28 @@
   margin: 1rem;
 }
 
+.btn-cancel{
+  width: 250px;
+  height: 35px;
+  color:rgb(11, 14, 11);
+  font-size: 25px;
+  font-weight: 400;
+  background-color: rgb(193, 226, 7);
+  border-radius: 8px;
+}
+
+.btn-save{
+  width: 250px;
+  height: 35px;
+  color:rgb(11, 14, 11);
+  font-size: 25px;
+  font-weight: 400;
+  background-color: rgb(36, 223, 8);
+  border-radius: 8px;
+  margin-right: 50px;
+}
+
+
 
 
 

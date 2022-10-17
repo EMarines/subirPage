@@ -8,8 +8,18 @@ let fecha;
 
 // Convertir fecha en timestamp a formato legible SIN hora
       export function formatDate(fecha){
+        if(typeof fecha === "string"){
+          console.log(fecha)
+          // let newfecha = fecha.getTime();
+          // console.log(newfecha)
+          fecha =new Date(fecha);
+          // let newFecha=fecha.getTime()
+          // console.log("string ;", fecha)
+        } else {
           fecha = new Date(fecha);
-          let dia = fecha.getDate()+1;
+          // console.log("number", fecha)
+        }
+          let dia = fecha.getDate();
           if(dia < 10){
             dia = '0' + dia
           }
