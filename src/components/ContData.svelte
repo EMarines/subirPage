@@ -7,8 +7,8 @@
       import Ubication from './Ubication.svelte';
       import Tags from './Tags.svelte'
       import { formatDate} from '../assets/funcions/sevralFunctions'
-      import { onMount }  from 'svelte';
-      import { db } from '../assets/db';
+      // import { onMount }  from 'svelte';
+      // import { db } from '../assets/db';
 
    // Declaraciones
       var allPropertiesName = [];

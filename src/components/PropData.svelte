@@ -21,18 +21,20 @@
          <!-- <div class=""> -->
           <div>
             {#if editDate}
-              <input class=" dataInput" type="date" bind:value={$property.createdAt}  />
+              <input class=" dataInput" type="date" bind:value={$property.createdAt}  />                
             {:else}
-              <h3 class=" dataInput" on:dblclick={mostInputDate} >{formatDate($property.createdAt)}</h3>
+              {#if $systStatus === "propEditing"}
+                <h3 class=" dataInput" on:dblclick={mostInputDate} >{formatDate($property.createdAt)}</h3>
+              {/if} 
             {/if}
           </div> 
 
   <!-- Tipo de propiedad buscada -->  
       <select class="selTP" id="selTP" name="selTP" bind:value={$property.selecTP}>
         <option disabled selected value="">Tipo de Propiedad</option>
-        {#each typeProperties as selecTP}
-        <option type="checkbox" value={selecTP}>{selecTP}</option>
-        {/each}
+          {#each typeProperties as selecTP}
+            <option type="checkbox" value={selecTP}>{selecTP}</option>
+          {/each}
       </select>
 
   <!-- Propieatrio -->  

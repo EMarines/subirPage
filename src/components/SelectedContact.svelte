@@ -4,7 +4,6 @@
   // Importaciones
     import { db, dbContacts, dbProperties } from '../firebase';
     import { collection, deleteDoc, doc} from 'firebase/firestore';
-
     import Search from './Search.svelte';
     import AddToSchedule from './AddToSchedule.svelte';
     import CardProperty from './CardProperty.svelte';
@@ -13,6 +12,7 @@
     import { formatDate } from '../assets/funcions/sevralFunctions';
     import { scale } from 'svelte/transition';
     import { expoInOut } from 'svelte/easing';
+    // import { binnSave } from '../assets/funcions/binnSaver'
     import AltaContacto from '../lib/AltaContacto.svelte';
     import { searchProperty } from '../assets/funcions/search'
 
@@ -91,6 +91,7 @@
       };
 
     // Muestra botones WhatsApp y Guardar Info
+    
         function seleTypeAction (){
           mostButtons = true;
           mostPoperties = false;
@@ -123,10 +124,11 @@
 
         function sendWA(){
           console.log(contCheck)
-          let link = (`https://api.whatsapp.com/send?phone=521${$contact.telephon}&text=${contCheck}`)
+          let link = (`https://api.whatsapp.com/send?phone=52${$contact.telephon}&text=${contCheck}`)
           window.open(link)
         };
-
+    
+    // Guarda la nota
         function saveNote(){
           console.log(contCheck)
         };
@@ -173,9 +175,9 @@
             <p>{$contact.comContact}</p>
     <!-- Botones -->
           <div>
-            <button class="btnCommon" on:click = {() => addSchedule()}>Programar Evento</button>
+            <button class="btnCommon" on:click = {() => addSchedule($contact)}>Programar Evento</button>
               {#if isActivated}
-                <AddToSchedule on:closeIt = {close}/>
+                <AddToSchedule {...$contact} on:closeIt = {close} />
               {/if}
               <button class="btnCommon" on:click = { () => fitProp($contact)}>Ver Propiedades de Interes</button>
               <button class="btnCommon" on:click = {mostSearch}> Buscar Propiedad</button>
