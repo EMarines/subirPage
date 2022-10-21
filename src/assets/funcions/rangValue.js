@@ -49,7 +49,7 @@ let rng;
         else if (price > 12000000) {
         lowRange = 12000000, upRange=1500000000       // SXTre
       } 
-      console.log(lowRange, upRange)
+      console.log("el rango es: ", )
       return 
     };
 
@@ -57,22 +57,22 @@ let rng;
     export function mosRange(price){
       // console.log("El precio de la pripiedad es: ", price)
       if(price <= 1000000){
-        rng = "prm";                 // PRM
+        rng = "PRM";                 // PRM
       }
       else if (price <= 2500000) {
-        rng = "sgn"            // SGN
+        rng = "SGN"            // SGN
       }
       else if (price <= 5000000) {
-        rng = "trc"            // TRC
+        rng = "TRC"            // TRC
       }
       else if (price <= 8000000) {
-        rng = "crt"            // CRT
+        rng = "CRT"            // CRT
       }
       else if (price <= 12000000) {   // QNT
-        rng = "qnt"  
+        rng = "QNT"  
       }
         else if (price > 12000000) {
-        rng = "sxt"            // SXT
+        rng = "SXT"            // SXT
       } 
       console.log(rng)
       return rng     

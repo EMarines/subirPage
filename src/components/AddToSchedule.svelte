@@ -5,7 +5,7 @@
       import { createEventDispatcher } from 'svelte';
       import { fly, fade } from 'svelte/transition';
       import { contact, todo, systStatus } from '../stores/stores';
-      import { binnSave } from '../assets/funcions/binnSaver'
+      import { binnSave } from '../assets/funcions/itemSaver'
       import { now } from 'svelte/internal';
 
       

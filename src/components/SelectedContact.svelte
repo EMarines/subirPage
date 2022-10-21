@@ -15,6 +15,7 @@
     // import { binnSave } from '../assets/funcions/binnSaver'
     import AltaContacto from '../lib/AltaContacto.svelte';
     import { searchProperty } from '../assets/funcions/search'
+    import { binnSave } from '../assets/funcions/itemSaver';
 
   // Declaraciones
     let mostImageProp = false;
@@ -125,7 +126,8 @@
         function sendWA(){
           console.log(contCheck)
           let link = (`https://api.whatsapp.com/send?phone=52${$contact.telephon}&text=${contCheck}`)
-          window.open(link)
+          window.open(link);
+          binnSave()
         };
     
     // Guarda la nota

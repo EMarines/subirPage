@@ -1,6 +1,6 @@
-import { db } from "../db";
+import { dbProperties } from "../../firebase";
 import { contact, systStatus, proInterest, property} from '../../stores/stores'
-import { setRange } from '../funcions/rangValue'
+import { setRange, ranPrice, mosRange } from '../funcions/rangValue'
 
 let lowRange;
 let upRange;
@@ -11,7 +11,7 @@ let message;
 
     export function filtContPropInte($contact){
 
-       let proInt = db.properties
+       let proInt = dbProperties
         proInt = proInt.filter((item) => item.selectTP === $contact.selecTP);
         console.log("filtraste por tipo de propiedad", proInt )
        
@@ -31,15 +31,21 @@ let message;
     // Filtra por Rango
         if($contact.budget){
           console.log("filtraste por budget")
+
           lowRange=($contact.budget * .7)
           upRange=($contact.budget * 1.1)
-          proInt = proInt.filter(function (prop) {
-            (prop.price >= lowRange && prop.price <= upRange);
-          })         
+          console.log(lowRange, upRange)
+          proInt = proInt.filter((prop) => 
+            prop.price >= lowRange && prop.price <= upRange
+          // console.log(prop.price)
+          )         
         } else {         
           console.log("filtraste por rango")
-          proInt = proInt.filter((prop) => prop.rangeProp === $contact.rangeProp);  
+          proInt = proInt.filter((prop) => mosRange(prop.price) === $contact.rangeProp);
+          // console.log(prop.price)
+
         };
+        console.log("filtraste presupuesto", proInt)
         
     // Filtra por Ubicación  
         if($contact.locaProperty.length > 0){
