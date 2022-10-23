@@ -1,9 +1,11 @@
+
 <script>
+	// import { conInterest } from './../stores/stores.js';
    
    // Importaciones
       import { db, dbProperties, dbContacts } from '../firebase';
       import { deleteDoc, doc} from 'firebase/firestore';
-      import { conInterest, property } from '../stores/stores'
+      import { property, conInterest } from '../stores/stores'
       import { filtPropContInte } from '../assets/funcions/filContacts'
       import { systStatus } from '../stores/stores';
       import ContactCard from './CardProperty.svelte';
@@ -11,6 +13,7 @@
 
    // Declaraciones
       let checkedContacts = [];
+      let conInt = [];
       let currentId;
       let seeCont = false;
       let editStatus= false;
@@ -42,8 +45,9 @@
          function findCustomers() {
             // console.log("La propiedad es: ", $property)
             filtPropContInte($property, dbContacts)
-            // console.log("siiiiiii", lowRange, upRange)
-            seeCont = !seeCont;
+            // $contToRender = conInt;
+            // console.log(conInt)
+            seeCont = true;
          }; 
 
       // onCancel
@@ -97,16 +101,16 @@
 
    <!-- Tarjeta de clientes interesados -->
          {#if seeCont}
-            <div class="conInt">
-               {#each $conInterest as item}
+         {#each $conInterest as item}
+         <div class="conInt">
                   <input type="checkbox">
                   <div>{item.name} {item.lastname}</div>
                   <div>{item.locaProperty}</div>
                   <div>{item.tagsProperty}</div>
-                  <div>{item.budge}</div>
+                  <div>{item.budget}</div>
                   <div>{item.rangeProp}</div>
+               </div>
                {/each}
-            </div>
          {/if}
 
  <style>

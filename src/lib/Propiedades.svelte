@@ -38,6 +38,7 @@
    // Funciones
       // Propiedad Seleccionada
             function selectProduct(item) {
+               console.log(item)
                $property = item
                $systStatus = "propSelect"
             };

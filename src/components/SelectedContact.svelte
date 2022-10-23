@@ -9,7 +9,7 @@
     import CardProperty from './CardProperty.svelte';
     import { contact, systStatus, proInterest, property } from '../stores/stores.js';
     import { filtContPropInte } from '../assets/funcions/filProperties'
-    import { formatDate } from '../assets/funcions/sevralFunctions';
+    import { formatDate, copyToPaste } from '../assets/funcions/sevralFunctions';
     import { scale } from 'svelte/transition';
     import { expoInOut } from 'svelte/easing';
     // import { binnSave } from '../assets/funcions/binnSaver'
@@ -125,6 +125,8 @@
 
         function sendWA(){
           console.log(contCheck)
+          // text = contCheck;
+          // copyToPaste(contCheck)
           let link = (`https://api.whatsapp.com/send?phone=52${$contact.telephon}&text=${contCheck}`)
           window.open(link);
           binnSave()

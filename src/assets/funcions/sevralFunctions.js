@@ -59,15 +59,26 @@ let fecha;
             let dia = diaSemana[fecha.getDay()];
 
           return (`${dia}-`)
-          }
 
 
-// Search Properties
+          
+          };
 
-// let systStatus = "start";
-// let searchTerm;
-// let porpInterest = [];
-// let properties = db.properties
+// Copiar al portapapeles
+
+  export function copyToPaste(text) {
+    console.log(text)
+   text.select();
+    document.execCommand("copy")
+    // // @ts-ignore
+    // navigator.clipboard.readText(text)
+    // .then(() => {
+    //     console.log('Text copied to clipboard: ', text);
+    // })
+    // .catch(err => {
+    //     console.error('Error in copying text: ', err);
+    // });
+  };
 
         
 

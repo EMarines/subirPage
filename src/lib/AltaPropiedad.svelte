@@ -9,26 +9,29 @@
    import PropData from '../components/PropData.svelte';
 
     let editStatus = false;
-    let createdAt=1;
+    let createdAt = 0;
 
 // Funciones
    // Edicion o Alta de Propiedad
       async function handleSubmit() { 
-         console.log("Estas en add property", $systStatus)
+         console.log("Estas en add property", $systStatus, $property)
          if($systStatus === "propEditing"){
+            // @ts-ignore
             console.log("estas dentro de edit property", $property.id)
-            await updateDoc(doc(db, "contacts", $property.id), $property)
+            // @ts-ignore
+            await updateDoc(doc(db, "properties", $property.id), $property)
             editStatus = false;
          } else {
              createdAt = Date.now()
              $property = {
+               // @ts-ignore
                ...$property, createdAt
              }     
             console.log($property)
                const contToAdd = collection(db, "properties")
                await addDoc(contToAdd, $property);
             }
-            // $systStatus = "start"
+            $systStatus = "start"
         };
 
          async function addProperty($property) {

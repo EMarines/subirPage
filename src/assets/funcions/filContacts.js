@@ -1,88 +1,92 @@
-import { db } from "../db";
-import {  conInterest } from '../../stores/stores'
-import { setRange, mosRange } from '../funcions/rangValue'
 
-let lowRange;
-let upRange;
-let message;
-let rng;
+import { conInterest } from '../../stores/stores';
+import { mosRange } from '../funcions/rangValue'
+
+let conIntB = [];
+let conIntR = [];
+let conInt = [];
 
 // Filtrar property -- properties
     export function filtPropContInte($property, conInt){
-
+      // console.log(conInt)
   // Tipo de propiedad
         conInt = conInt.filter((item) => item.selecTP === $property.selectTP);
-        console.log("tipo Prop", conInt)
+        // console.log("tipo Prop", conInt)
 
   // Numero de recámaras   
         if ($property.numBeds > 0) {
         conInt = conInt.filter((item) => item.numBeds >= $property.beds);
         };
-        console.log("recamaras", conInt)
+        // console.log("recamaras", conInt)
 
   // Numero de baños
         if ($property.numBaths > 0) {
           conInt = conInt.filter((item) => item.numBaths >= $property.bathroom);
         };
-        console.log("baños ", $property.numBaths, conInt)
+        // console.log("baños ", $property.numBaths, conInt)
 
   // Estacionamientos
         if ($property.numParks > 0) {
           conInt = conInt.filter((item) => item.numPark >= $property.parks);
         };
-        console.log("estacionamientos", conInt)
-        console.log($property.budget)
+
   // Presupuesto
-        // if($property.price){
-          lowRange=($property.price * .7)
-          upRange=($property.price * 1.1)
-          conInt = conInt.filter(function (prop) {
-            if(prop.budget){
-              return (prop.budget >= lowRange && prop.budget <= upRange);
-            }
-            console.log("no tiene budget")
-            mosRange($property.price)
-            console.log(rng)
-            // rngo = "crt"
-            return conInt = conInt.filter((item) => item.rangeProp === rng)
-          }); 
-          
-          let conInt1 = 
-        // } else {          
-        //   filRange($property.price)
-        //     console.log("estas en rng", lowRange, upRange)
-        //     conInt = conInt.filter(function (proInt) {
-        //       console.log(lowRange, upRange)
-        //       return (proInt.price >= lowRange &&  proInt.price <= upRange);
-        //     });
-        // };
-          console.log("precio", conInt)
-          
+        //  
+        try {
+              conInt = conInt.filter((cont) =>{                
+              if(cont.budget){
+                conIntB = conInt.filter((cont) => cont.budget >= $property.price *.7 && cont.budget <= $property.price * 1.1 )
+              } else {
+                conIntR = conInt.filter((cont) => cont.rangeProp === mosRange($property.price));
+              };              
+            });            
+          } catch (error) {
+            console.log(error)
+          }
+          conInt = conIntR.concat(conIntB) 
+          conIntB=[];
+          conIntR=[];
+          // console.log(conInt)
+
   // Filtra por Ubicación  
-          if($property.locaProperty.length > 0){
-            conInt = conInt.filter(e => ($property.locaProperty).every(c => (e.locaProperty).includes(c)));
-          };
-          console.log("ubicacion", conInt)
+          try {
+            conInt.filter((cont) => {
+              if(cont.locaProperty.length > 0){
+                conIntB = conInt.filter(e => ($property.locaProperty).every(c => (e.locaProperty).includes(c)));
+                console.log($property.locaProperty)
+              } else {
+                conIntR = conInt.filter((cont) => cont.locaProperty.length === 0)
+                console.log($property.locaProperty)
+              }
+            });            
+          } catch (error) {
+            console.log(error)
+          }
+          // console.log(conIntB, conIntR)
+          conInt = conIntR.concat(conIntB) 
+          conIntB=[];
+          conIntR=[];
+          // console.log(conInt)
           
   // Filtra por Etiquetas
-
-          let conInt2 = conInt.filter((item) =>item.tagsProperty.length === 0)
-            console.log("estas dentro de tags", $property.tagsProperty.length)
-            conInt= conInt.filter(e => $property.tagsProperty.some(c => e.tagsProperty.includes(c)));
-            conInt = conInt.concat(conInt2)
-            console.log("Etiquetas", conInt)
-          
-
-          if (conInt.length === 0) {
-              message = "No hay resultados con este criterio de busqueda"
-              console.log(conInt.length, message)
+          try {
+            conInt = conInt.filter((cont) => {
+              if(cont.tagsProperty.length > 0){
+                conIntB= conInt.filter(e => $property.tagsProperty.some(c => e.tagsProperty.includes(c)));
           } else {
-            message = ("Se encontraron" + conInt.length + "propiedades con este criterio de busqueda" )
+                conIntR = conInt.filter((cont) => cont.tagsProperty.length === 0)
+              }
+            });            
+          } catch (error) {
+            console.log(error)
           };
-          console.log(conInt)
-            
-          return conInterest.set(conInt)
 
+          // return conInt 
+          // conIntB=[];
+          // conIntR=[];
+          conInt = conIntR.concat(conIntB) 
+          console.log(conInt) 
+          return conInterest.set(conInt)
     };
 
 

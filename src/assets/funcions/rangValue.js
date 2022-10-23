@@ -55,7 +55,6 @@ let rng;
 
   // Devuelve el rango en letras de un valor
     export function mosRange(price){
-      // console.log("El precio de la pripiedad es: ", price)
       if(price <= 1000000){
         rng = "PRM";                 // PRM
       }
@@ -74,7 +73,6 @@ let rng;
         else if (price > 12000000) {
         rng = "SXT"            // SXT
       } 
-      console.log(rng)
       return rng     
     };
 

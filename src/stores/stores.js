@@ -6,7 +6,9 @@ export const contactI = writable();
 
 export const proInterest = writable([]);
 
-export const conInterest = writable([])
+export const conInterest = writable([]);
+
+// export const contToRender = writable([]);
 
 export const searchTermG = writable("start");
 
