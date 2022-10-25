@@ -49,10 +49,12 @@ let conInt = [];
           // console.log(conInt)
 
   // Filtra por Ubicación  
+
+
           try {
             conInt.filter((cont) => {
               if(cont.locaProperty.length > 0){
-                conIntB = conInt.filter(e => ($property.locaProperty).every(c => (e.locaProperty).includes(c)));
+                conIntB = conInt.filter(con => ($property.locaProperty).some(c => (con.locaProperty).includes(c)));
                 console.log($property.locaProperty)
               } else {
                 conIntR = conInt.filter((cont) => cont.locaProperty.length === 0)

@@ -49,7 +49,7 @@ let message;
         
     // Filtra por Ubicación  
         if($contact.locaProperty.length > 0){
-          {proInt = proInt.filter(e => ($contact.locaProperty).some(c => (e.locaProperty).includes(c)))};
+          {proInt = proInt.filter(prop => ($contact.locaProperty).some(c => (prop.locaProperty).includes(c)))};
         };
         console.log("Filtraste por Ubicacion", proInt)
         
