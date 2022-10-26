@@ -1,7 +1,7 @@
 <script>
 	import Login from './Login.svelte';
-   // import firebase from "@firebase/app";
-   // import "@firebase/auth";
+   // import firebase, {getAuth} from "@firebase/app";
+   import "@firebase/auth";
    
    let email;
    let password;
@@ -9,7 +9,7 @@
    let auth = false;
    
    function handleSubmit() {
-       // event.preventDefault();
+      //  event.preventDefault();
       //  firebase.auth().signInWithEmailAndPassword(email, password)
       //  .then(function(){
       //      console.log("Estas Logeado")

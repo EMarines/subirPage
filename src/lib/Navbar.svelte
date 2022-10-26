@@ -10,9 +10,9 @@
     import Sinergias from "./Sinergias.svelte";
     import AltaContacto from './AltaContacto.svelte'
     import AltaPropiedad from './AltaPropiedad.svelte';
-    import login from './Login.svelte'
+    import login from './Login3.svelte'
     import logoMH from '../assets/images/logoMH.png'
-  import Login from "./Login.svelte";
+    import Login from "./Login3.svelte";
     // import SelectProperty from '../components/SelectProperty.svelte';
    
    
@@ -166,12 +166,12 @@
     display: none;
   } */
 
-  section{
+  /* section{
     background: url(logMh);
     background-size: cover;
     background-position: center center;
     height: calc(100vh -80);
-  }
+  } */
 
   @media (max-width: 952px){
     /* .enlace{

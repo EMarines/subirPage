@@ -2,6 +2,7 @@
   import { initializeApp } from 'firebase/app';
   import { collection, addDoc, getDoc, getDocs } from 'firebase/firestore'
   import { getFirestore } from 'firebase/firestore';
+  import { getAuth} from 'firebase/auth'
    // import { getStorage } from 'firebase/storage'  
    // import 'firebase/firestore';
    // import 'firebase/auth';                                                                                                                                                                  
@@ -37,7 +38,9 @@
   
   export const database = initializeApp(firebaseConfig);
   export  const db = getFirestore(database);
-  // export const storage = getStorage(database)
+
+  const auth = getAuth(database)
+  export { auth };
   
   const bitacora = collection(db, "binnacles")
   const contactos = collection(db, "contacts")
